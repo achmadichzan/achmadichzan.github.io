@@ -41,7 +41,7 @@
   --text-light: #FFFFFF;
   --text-muted: #555555;
 
-  --font-headline: Impact, 'Arial Black', -apple-system, sans-serif;
+  --font-headline: Impact, 'Haettenschweiler', 'Arial Narrow Bold', sans-serif-condensed, 'Arial Black', -apple-system, sans-serif;
   --font-mono: 'Space Mono', 'JetBrains Mono', 'Courier New', monospace;
 
   --border-thick: 3px solid #000000;
@@ -316,6 +316,8 @@ a {
 
 .hero-headline {
   font-family: var(--font-headline);
+  font-weight: 900;
+  font-stretch: condensed;
   font-size: clamp(2.4rem, 6vw, 4.25rem);
   line-height: 0.95;
   text-transform: uppercase;
@@ -399,6 +401,8 @@ a {
 
 .dev-log-title {
   font-family: var(--font-headline);
+  font-weight: 900;
+  font-stretch: condensed;
   font-size: 2.75rem;
   text-align: center;
   letter-spacing: 2px;
@@ -555,6 +559,8 @@ a {
 
 .metric-val {
   font-family: var(--font-headline);
+  font-weight: 900;
+  font-stretch: condensed;
   font-size: 2.25rem;
   line-height: 1;
   margin-bottom: 0.35rem;
@@ -576,26 +582,34 @@ a {
 
 .section-header-row {
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  gap: 0.5rem;
   margin-bottom: 0.5rem;
+  width: 100%;
 }
 
 .section-main-title {
   font-family: var(--font-headline);
-  font-size: 2.25rem;
+  font-weight: 900;
+  font-stretch: condensed;
+  font-size: clamp(1.25rem, 5vw, 2.25rem);
   letter-spacing: 0.5px;
   text-transform: uppercase;
+  line-height: 1.1;
 }
 
 .status-badge-dark {
   background: var(--bg-dark);
   color: var(--text-light);
-  font-size: 0.75rem;
+  font-size: clamp(0.65rem, 2.2vw, 0.75rem);
   font-weight: 700;
-  padding: 0.3rem 0.65rem;
+  padding: 0.25rem 0.55rem;
   border: 2px solid var(--bg-dark);
   letter-spacing: 0.5px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .thick-rule {
@@ -696,6 +710,8 @@ a {
 
 .proj-title {
   font-family: var(--font-headline);
+  font-weight: 900;
+  font-stretch: condensed;
   font-size: 1.35rem;
   line-height: 1.1;
   text-transform: uppercase;
