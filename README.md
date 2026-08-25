@@ -25,7 +25,6 @@ achmadichzan/
 ├── index.html        # Main semantic HTML structure & structured JSON-LD data
 ├── style.css         # Self-hosted @font-face rules & complete Neo-Brutalist design system
 ├── script.js         # Telemetry engine, scroll reveal, Scrollspy & interactive CLI terminal
-├── manifest.json     # PWA Web App Manifest for mobile installability
 ├── robots.txt        # Web crawler configuration
 ├── sitemap.xml       # XML sitemap with canonical domain
 ├── assets/
@@ -46,5 +45,7 @@ Run any static server or Python HTTP server:
 ```bash
 cd /home/achmadichzan/achmadichzan
 python3 -m http.server 3000
+or
+npx -y vite --port 3000
 ```
 Open your browser at: `http://localhost:3000`

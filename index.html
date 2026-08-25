@@ -17,15 +17,15 @@
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#F4F4F0">
 
-  <link rel="canonical" href="https://achmadichzan.dev/">
+  <link rel="canonical" href="https://achmadichzan.github.io/">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://achmadichzan.dev/">
+  <meta property="og:url" content="https://achmadichzan.github.io/">
   <meta property="og:title" content="Achmad Ichzan — Full-Stack Developer">
   <meta property="og:description"
     content="Building high-performance web & mobile applications with PHP/Laravel, Kotlin, and Python. Open to work & freelance.">
-  <meta property="og:image" content="https://achmadichzan.dev/assets/og-image.webp">
+  <meta property="og:image" content="https://achmadichzan.github.io/assets/og-image.webp">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:locale" content="en_US">
@@ -33,19 +33,19 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://achmadichzan.dev/">
+  <meta name="twitter:url" content="https://achmadichzan.github.io/">
   <meta name="twitter:title" content="Achmad Ichzan — Full-Stack Developer">
   <meta name="twitter:description"
     content="Building high-performance web & mobile applications with PHP/Laravel, Kotlin, and Python. Open to work & freelance.">
-  <meta name="twitter:image" content="https://achmadichzan.dev/assets/og-image.webp">
+  <meta name="twitter:image" content="https://achmadichzan.github.io/assets/og-image.webp">
 
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="shortcut icon" href="favicon.ico">
-  <link rel="manifest" href="manifest.json">
   <meta name="referrer" content="strict-origin-when-cross-origin">
 
   <!-- Preload Fonts -->
   <link rel="preload" href="./assets/fonts/i7dPIFZifjKcF5UAWdDRYEF8RQ.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./assets/fonts/i7dMIFZifjKcF5UAWdDRaPpZUFWaHg.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="./assets/fonts/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2"
     as="font" type="font/woff2" crossorigin>
 
@@ -57,7 +57,7 @@
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Achmad Ichzan",
-    "url": "https://achmadichzan.dev",
+    "url": "https://achmadichzan.github.io",
     "jobTitle": "Full-Stack Developer",
     "worksFor": {
       "@type": "Organization",
@@ -74,12 +74,25 @@
       "addressCountry": "ID"
     },
     "email": "achmadichzan9@gmail.com",
-    "image": "https://achmadichzan.dev/assets/avatar.webp"
+    "image": "https://achmadichzan.github.io/assets/avatar.webp"
   }
   </script>
 </head>
 
 <body>
+
+  <!-- Terminal Preloader -->
+  <div id="terminalPreloader" class="terminal-preloader" role="status" aria-live="polite" aria-label="Loading system">
+    <div class="preloader-terminal-box">
+      <div class="preloader-header">
+        <span>DEV_BOOT // SESSION_INIT</span>
+      </div>
+      <div class="preloader-content">
+        <span class="preloader-prompt">~/achmadichzan$</span>
+        <span id="preloaderSpinner" class="preloader-spinner">|</span>
+      </div>
+    </div>
+  </div>
 
   <a href="#main-content" class="skip-to-content">Skip to main content</a>
 
@@ -88,7 +101,7 @@
 
       <!-- Navigation -->
       <header class="top-nav">
-        <a href="#main-content" class="nav-logo">DEV_ROOT_V1.0</a>
+        <a href="#main-content" class="nav-logo">~/achmadichzan$</a>
 
         <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle Navigation Menu" aria-expanded="false"
           aria-controls="navMenuWrapper">
@@ -423,7 +436,7 @@
       <!-- Footer -->
       <footer class="site-footer">
         <div class="footer-copy">
-          &copy;2026 FULLSTACK_DEV // ALL RIGHTS RESERVED
+          &copy;2026 ACHMAD ICHZAN // ALL RIGHTS RESERVED
         </div>
         <ul class="footer-nav">
           <li><button type="button" class="cli-trigger" id="cliTriggerBtn" aria-haspopup="dialog" aria-expanded="false"
@@ -456,6 +469,10 @@
 
   <noscript>
     <style>
+      #terminalPreloader {
+        display: none !important;
+      }
+
       .telemetry-ticker-bar {
         display: none;
       }

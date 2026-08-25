@@ -147,6 +147,15 @@ function getNetworkStatus() {
   return 'ONLINE (FAST)';
 }
 
+function updateNetworkStatus() {
+  const els = getTelemetryEls();
+  const net = getNetworkStatus();
+  els.net.forEach(el => { el.textContent = net; });
+}
+
+window.addEventListener('online', updateNetworkStatus);
+window.addEventListener('offline', updateNetworkStatus);
+
 function initStaticTelemetry() {
   const els = getTelemetryEls();
   const specs = getClientStaticSpecs();
@@ -157,8 +166,7 @@ function initStaticTelemetry() {
   els.os.forEach(el => { el.textContent = specs.os; });
   els.res.forEach(el => { el.textContent = specs.res; });
   els.dpr.forEach(el => { el.textContent = specs.dpr; });
-  const net = getNetworkStatus();
-  els.net.forEach(el => { el.textContent = net; });
+  updateNetworkStatus();
 }
 
 function updateDynamicTelemetry() {
@@ -248,6 +256,12 @@ function setTheme(theme, notify = false) {
     document.body.classList.add('theme-matrix');
   }
 
+  const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+  if (metaThemeColor) {
+    const colors = { light: '#F4F4F0', dark: '#000000', matrix: '#0D0208' };
+    metaThemeColor.setAttribute('content', colors[validTheme] || '#F4F4F0');
+  }
+
   try {
     localStorage.setItem('portfolio_theme', validTheme);
   } catch (e) {}
@@ -312,7 +326,41 @@ function triggerHtmxNotification(msg) {
   showToast(msg);
 }
 
+function initTerminalPreloader() {
+  const preloader = document.getElementById('terminalPreloader');
+  const spinner = document.getElementById('preloaderSpinner');
+  if (!preloader || !spinner) return;
+
+  document.body.style.overflow = 'hidden';
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) {
+    preloader.classList.add('hide');
+    document.body.style.overflow = '';
+    setTimeout(() => preloader.remove(), 400);
+    return;
+  }
+
+  const frames = ['|', '/', '-', '\\'];
+  let frameIdx = 0;
+
+  const spinnerInterval = setInterval(() => {
+    frameIdx = (frameIdx + 1) % frames.length;
+    spinner.textContent = frames[frameIdx];
+  }, 100);
+
+  setTimeout(() => {
+    clearInterval(spinnerInterval);
+    preloader.classList.add('hide');
+    document.body.style.overflow = '';
+    setTimeout(() => {
+      preloader.remove();
+    }, 400);
+  }, 2000);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  initTerminalPreloader();
   setTheme(getStoredTheme(), false);
   initStaticTelemetry();
   startTelemetryEngine();
@@ -471,7 +519,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (mainCmd === 'skills') {
           responseRow.innerHTML = `[CORE COMPETENCY TREE]<br>PHP / LARAVEL       [████████████████░░] 88%<br>KOTLIN / ANDROID    [█████████████████░] 92%<br>PYTHON / YOLO / ML  [███████████████░░░] 82%<br>MYSQL / DOCKER / CI [███████████████░░░] 85%`;
         } else if (mainCmd === 'projects') {
-          responseRow.innerHTML = `DEPLOYMENTS:<br>1. Silsilahku (Svelte, SQLite, Canvas Graph)<br>2. EduReflect (Python, YOLO, Computer Vision)<br>3. Rangkum (Kotlin, Vosk STT, AI Summarizer)`;
+          responseRow.innerHTML = `DEPLOYMENTS:<br>1. <a href="https://silsilahku.achmadichzan9.workers.dev/" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">Silsilahku</a> (Svelte, SQLite, Canvas Graph)<br>2. <a href="https://huggingface.co/spaces/PJK-GU108/EduReflect" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">EduReflect</a> (Python, YOLO, Computer Vision)<br>3. <a href="https://github.com/achmadichzan/Rangkum" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">Rangkum</a> (Kotlin, Vosk STT, AI Summarizer)`;
         } else if (mainCmd === 'experience' || mainCmd === 'cv' || mainCmd === 'resume') {
           responseRow.innerHTML = `EXPERIENCE LOG:<br>- Jan 2026 - Present: Full Stack Developer @ PT Global Connection Indonesia<br>- Jul 2025 - Nov 2025: ML Cohort @ Dicoding Indonesia<br>- Dec 2023 - Jan 2024: Mobile Apps Developer @ PT Bank Mandiri (Persero) Tbk.<br>- Feb 2023 - Jul 2023: Mobile Cohort @ Bangkit Academy`;
         } else if (mainCmd === 'matrix') {
@@ -496,7 +544,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (mainCmd === 'sudo') {
           responseRow.innerHTML = `<span style="color:#FF4444;">Permission denied: User 'guest' is not in the sudoers file. This incident will be logged.</span>`;
         } else if (mainCmd === 'contact') {
-          responseRow.innerHTML = `WhatsApp: 082291871923<br>Instagram: @achmadichzan_<br>Email: achmadichzan9@gmail.com`;
+          responseRow.innerHTML = `WhatsApp: <a href="https://wa.me/6282291871923" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">082291871923</a><br>Instagram: <a href="https://instagram.com/achmadichzan_" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">@achmadichzan_</a><br>Email: <a href="mailto:achmadichzan9@gmail.com" style="color:inherit;text-decoration:underline;">achmadichzan9@gmail.com</a>`;
         } else if (mainCmd === 'email') {
           if (navigator.clipboard) {
             navigator.clipboard.writeText('achmadichzan9@gmail.com')
@@ -514,7 +562,7 @@ document.addEventListener('DOMContentLoaded', () => {
           window.open('https://github.com/achmadichzan', '_blank', 'noopener,noreferrer');
           responseRow.innerHTML = `OPENED: https://github.com/achmadichzan`;
         } else if (mainCmd === 'clear') {
-          cliScreen.innerHTML = `<div>DEV_ROOT v1.0.0 (x86_64-pc-none-elf)</div><div style="color: #888888;">----------------------------------------</div>`;
+          cliScreen.innerHTML = `<div>DEV_ROOT v1.0.0 (x86_64-pc-none-elf)</div><div>Type 'help', 'status', 'clear', or 'contact' to interact.</div><div style="color: #888888;">----------------------------------------</div>`;
           this.value = '';
           return;
         } else {
@@ -568,7 +616,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    setTimeout(typePrompt, 300);
+    const startDelay = document.getElementById('terminalPreloader') ? 2100 : 300;
+    setTimeout(typePrompt, startDelay);
   }
 
   // Clone telemetry content for seamless marquee loop
