@@ -25,18 +25,19 @@
 
 <body>
   <div class="master-wrapper" style="min-height: 100vh; display: flex; flex-direction: column;">
-    <div class="frame-container"
+    <main id="main-content" class="frame-container"
       style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 4rem 2rem; text-align: center;">
-      <div class="terminal-card" style="max-width: 580px; width: 100%;">
+      <section class="terminal-card" style="max-width: 580px; width: 100%;" aria-label="Error 404 Node Not Found">
         <div class="terminal-header">
           <span>HTTP_ERROR // 404</span>
           <span>[NOT_FOUND]</span>
         </div>
         <div class="terminal-body" style="text-align: left; padding: 2rem;">
-          <div style="font-weight: 700; color: #FF4444; margin-bottom: 1rem;">
+          <h1
+            style="font-size: 1.15rem; font-family: var(--font-headline); font-weight: 900; color: var(--accent-danger); margin-bottom: 1rem; letter-spacing: 0.5px;">
             &gt; ERROR_CODE: 404_PAGE_NOT_FOUND
-          </div>
-          <p style="margin-bottom: 1.5rem; font-size: 0.9rem;">
+          </h1>
+          <p style="margin-bottom: 1.5rem; font-size: 0.9rem; color: var(--text-body);">
             The requested target URL does not exist or has been relocated to another sector.
           </p>
           <hr class="dashed-line" style="margin: 1.5rem 0;">
@@ -45,13 +46,13 @@
               [RETURN_TO_BASE -&gt;]
             </a>
             <a href="https://github.com/achmadichzan" target="_blank" rel="noopener noreferrer" class="hero-cta-btn"
-              style="background: #EAEAE4; padding: 0.65rem 1.25rem;">
+              style="background: var(--bg-subtle); padding: 0.65rem 1.25rem;">
               [GITHUB]
             </a>
           </div>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   </div>
 </body>
 
