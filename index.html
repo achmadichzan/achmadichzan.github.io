@@ -7,13 +7,11 @@
 
   <!-- Primary Meta Tags -->
   <title>Achmad Ichzan — Full-Stack Developer | PHP, Kotlin, Python</title>
-  <meta name="title" content="Achmad Ichzan — Full-Stack Developer | PHP, Kotlin, Python">
   <meta name="description"
     content="Full-stack developer building high-performance web & mobile applications with PHP/Laravel, Kotlin, and Python. Open to work & freelance. Based in Makassar, Indonesia.">
   <meta name="keywords"
     content="Achmad Ichzan, Full Stack Developer, PHP, Laravel, Kotlin, Python, Web Developer, Mobile Developer, Makassar, Indonesia, Freelance Developer">
   <meta name="author" content="Achmad Ichzan">
-  <meta http-equiv="content-language" content="en">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#F4F4F0">
 
@@ -40,12 +38,17 @@
   <meta name="twitter:image" content="https://achmadichzan.github.io/assets/og-image.webp">
 
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/avatar.webp">
   <link rel="shortcut icon" href="favicon.ico">
+  <link rel="manifest" href="manifest.webmanifest">
   <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline'; connect-src 'self';">
 
   <!-- Preload Fonts -->
   <link rel="preload" href="./assets/fonts/i7dPIFZifjKcF5UAWdDRYEF8RQ.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="./assets/fonts/i7dMIFZifjKcF5UAWdDRaPpZUFWaHg.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./assets/fonts/i7dMIFZifjKcF5UAWdDRaPpZUFWaHg.woff2" as="font" type="font/woff2"
+    crossorigin>
   <link rel="preload" href="./assets/fonts/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2"
     as="font" type="font/woff2" crossorigin>
 
@@ -63,7 +66,7 @@
       "@type": "Organization",
       "name": "PT. Global Connection Indonesia"
     },
-    "knowsAbout": ["PHP", "Laravel", "Kotlin", "Python", "Node.js", "Docker", "MySQL", "TensorFlow"],
+    "knowsAbout": ["PHP", "Laravel", "Kotlin", "Python", "Rust", "Bun", "Node.js", "Vue", "Svelte", "Tailwind CSS", "FastAPI", "Docker", "MySQL", "PostgreSQL", "SQLite", "TensorFlow"],
     "sameAs": [
       "https://github.com/achmadichzan",
       "https://www.linkedin.com/in/achmadichzan/"
@@ -113,14 +116,15 @@
         <div class="nav-menu-wrapper" id="navMenuWrapper">
           <nav aria-label="Main navigation">
             <ul class="nav-links">
-              <li><a href="#about">ABOUT</a></li>
-              <li><a href="#stack">STACK</a></li>
-              <li><a href="#projects">PROJECTS</a></li>
-              <li><a href="#experience">EXPERIENCE</a></li>
+              <li><a href="#about" data-notify="NAV: Jumped to ABOUT_ME.TXT">ABOUT</a></li>
+              <li><a href="#stack" data-notify="NAV: Jumped to TECHNICAL_LOG">STACK</a></li>
+              <li><a href="#projects" data-notify="NAV: Jumped to DEPLOYMENTS">PROJECTS</a></li>
+              <li><a href="#experience" data-notify="NAV: Jumped to SYSTEM_HISTORY">EXPERIENCE</a></li>
             </ul>
           </nav>
 
-          <a href="mailto:achmadichzan9@gmail.com?subject=Project%20Inquiry%20//%20Achmad%20Ichzan" class="nav-cta-btn">
+          <a href="mailto:achmadichzan9@gmail.com?subject=Project%20Inquiry%20//%20Achmad%20Ichzan" class="nav-cta-btn"
+            data-notify="OUTBOX: Composing direct mailto transmission to achmadichzan9@gmail.com">
             [GET_IN_TOUCH]
           </a>
         </div>
@@ -143,12 +147,18 @@
               <span class="hero-spec-chip">&gt; BASE: MAKASSAR, ID</span>
             </div>
             <div class="hero-actions-row">
-              <a href="https://github.com/achmadichzan" target="_blank" rel="noopener noreferrer" class="hero-cta-btn">
+              <a href="https://github.com/achmadichzan" target="_blank" rel="noopener noreferrer" class="hero-cta-btn"
+                data-notify="GITHUB: Visiting public profile @achmadichzan">
                 [GITHUB]
               </a>
               <a href="https://www.linkedin.com/in/achmadichzan/" target="_blank" rel="noopener noreferrer"
-                class="hero-cta-btn">
+                class="hero-cta-btn" data-notify="LINKEDIN: Visiting professional network @achmadichzan">
                 [LINKEDIN]
+              </a>
+              <a href="https://wa.me/6282291871923?text=Halo%20Achmad%20Ichzan,%20saya%20tertarik%20untuk%20diskusi%20proyek."
+                target="_blank" rel="noopener noreferrer" class="hero-cta-btn"
+                data-notify="WHATSAPP: Initializing direct WhatsApp chat session">
+                [WHATSAPP]
               </a>
             </div>
           </div>
@@ -184,10 +194,13 @@
               <div class="terminal-body">
                 <div class="prompt-init">&gt; <span id="typewriterText">System initialized...</span><span
                     class="typewriter-cursor" id="initCursor" aria-hidden="true">_</span></div>
-                <p><span id="typewriterBio">I build production web applications with PHP/Laravel, develop native Android
+                <p
+                  aria-label="I build production web applications with PHP/Laravel, develop native Android apps with Kotlin, and apply machine learning with Python/TensorFlow. Focused on writing clean, maintainable code, and delivering reliable systems from frontend to backend.">
+                  <span id="typewriterBio">I build production web applications with PHP/Laravel, develop native Android
                     apps with Kotlin, and apply machine learning with Python/TensorFlow. Focused on writing clean,
                     maintainable code, and delivering reliable systems from frontend to backend.</span><span
-                    class="typewriter-cursor" id="bioCursor" style="display:none;" aria-hidden="true">_</span></p>
+                    class="typewriter-cursor" id="bioCursor" style="display:none;" aria-hidden="true">_</span>
+                </p>
 
                 <hr class="dashed-line">
 
@@ -232,14 +245,37 @@
           <hr class="thick-rule">
 
           <div class="tech-category-block">
-            <div class="category-title">CORE &amp; LANGUAGE</div>
+            <div class="category-title">CORE &amp; RUNTIME</div>
             <hr class="category-dashed">
             <div class="pill-grid">
               <div class="tech-pill">PHP</div>
               <div class="tech-pill">KOTLIN</div>
               <div class="tech-pill">PYTHON</div>
               <div class="tech-pill">NODE.JS</div>
+              <div class="tech-pill">BUN</div>
               <div class="tech-pill">RUST</div>
+            </div>
+          </div>
+
+          <div class="tech-category-block">
+            <div class="category-title">FRAMEWORKS &amp; UI</div>
+            <hr class="category-dashed">
+            <div class="pill-grid">
+              <div class="tech-pill">LARAVEL</div>
+              <div class="tech-pill">VUE</div>
+              <div class="tech-pill">SVELTE</div>
+              <div class="tech-pill">TAILWIND CSS</div>
+              <div class="tech-pill">FASTAPI</div>
+            </div>
+          </div>
+
+          <div class="tech-category-block">
+            <div class="category-title">DATABASE &amp; STORAGE</div>
+            <hr class="category-dashed">
+            <div class="pill-grid">
+              <div class="tech-pill">MYSQL</div>
+              <div class="tech-pill">POSTGRESQL</div>
+              <div class="tech-pill">SQLITE</div>
             </div>
           </div>
 
@@ -284,10 +320,18 @@
                   <div>&gt; INTERFACE: Infinite Draggable Canvas</div>
                   <div>&gt; DEPLOY: Cloudflare Workers</div>
                 </div>
-                <a href="https://silsilahku.achmadichzan9.workers.dev/" target="_blank" rel="noopener noreferrer"
-                  class="proj-action-link">
-                  [LIVE DEMO -&gt;]
-                </a>
+                <div class="proj-actions-row">
+                  <a href="https://silsilahku.achmadichzan9.workers.dev/" target="_blank" rel="noopener noreferrer"
+                    class="proj-action-link"
+                    data-notify="SILSILAHKU: Draggable interactive canvas family tree live demo">
+                    [LIVE DEMO -&gt;]
+                  </a>
+                  <a href="https://github.com/achmadichzan/silsilahku" target="_blank" rel="noopener noreferrer"
+                    class="proj-action-link"
+                    data-notify="SILSILAHKU: Svelte & SQLite infinite graph genealogy repository">
+                    [VIEW REPO -&gt;]
+                  </a>
+                </div>
               </div>
             </div>
 
@@ -313,10 +357,17 @@
                   <div>&gt; DETECTION: 7 Micro-Expressions (YOLO)</div>
                   <div>&gt; DEPLOY: Hugging Face Spaces</div>
                 </div>
-                <a href="https://huggingface.co/spaces/PJK-GU108/EduReflect" target="_blank" rel="noopener noreferrer"
-                  class="proj-action-link" data-notify="EDUREFLECT: Live space active on Hugging Face">
-                  [LIVE DEMO -&gt;]
-                </a>
+                <div class="proj-actions-row">
+                  <a href="https://huggingface.co/spaces/PJK-GU108/EduReflect" target="_blank" rel="noopener noreferrer"
+                    class="proj-action-link" data-notify="EDUREFLECT: Live space active on Hugging Face">
+                    [LIVE DEMO -&gt;]
+                  </a>
+                  <a href="https://github.com/PJK-GU108/EduReflect" target="_blank" rel="noopener noreferrer"
+                    class="proj-action-link"
+                    data-notify="EDUREFLECT: Computer vision YOLO facial recognition repository">
+                    [VIEW REPO -&gt;]
+                  </a>
+                </div>
               </div>
             </div>
 
@@ -342,10 +393,80 @@
                   <div>&gt; ENGINE: Vosk Multilingual Offline STT</div>
                   <div>&gt; INTELLIGENCE: Automated LLM Summarizer</div>
                 </div>
-                <a href="https://github.com/achmadichzan/Rangkum" target="_blank" rel="noopener noreferrer"
-                  class="proj-action-link" data-notify="RANGKUM: Speech transcription & AI summary architecture">
-                  [VIEW REPOSITORY -&gt;]
-                </a>
+                <div class="proj-actions-row">
+                  <a href="https://github.com/achmadichzan/Rangkum" target="_blank" rel="noopener noreferrer"
+                    class="proj-action-link" data-notify="RANGKUM: Speech transcription & AI summary architecture">
+                    [VIEW REPO -&gt;]
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Project 4: App Locker -->
+            <div class="project-card-brutalist">
+              <div class="project-card-header">
+                <span>// APP_LOCKER</span>
+                <span class="status-green">[STATUS: ACTIVE]</span>
+              </div>
+              <div class="project-card-body">
+                <h3 class="proj-title">NATIVE WINDOWS PROCESS INTERCEPTOR &amp; APP LOCKER</h3>
+                <p class="proj-desc">
+                  Native Windows security desktop application built with Rust that intercepts and suspends target
+                  processes
+                  via low-level NT APIs (NtSuspendProcess) before execution, featuring modern Slint UI authentication
+                  and IPC Named Pipes.
+                </p>
+                <div class="proj-tags-row">
+                  <span class="tag-small">Rust</span>
+                  <span class="tag-small">Slint UI</span>
+                  <span class="tag-small">Win32 / NTDLL</span>
+                  <span class="tag-small">Named Pipes IPC</span>
+                </div>
+                <div class="proj-metrics-box">
+                  <div>&gt; ENGINE: Low-Level Process Interception (NtSuspendProcess)</div>
+                  <div>&gt; ARCHITECTURE: Cargo Workspace (Daemon, UI, Watchdog)</div>
+                </div>
+                <div class="proj-actions-row">
+                  <a href="https://github.com/achmadichzan/app_locker" target="_blank" rel="noopener noreferrer"
+                    class="proj-action-link"
+                    data-notify="APP_LOCKER: Native Windows application lock & process interception daemon">
+                    [VIEW REPO -&gt;]
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Project 5: Unalzheimer -->
+            <div class="project-card-brutalist">
+              <div class="project-card-header">
+                <span>// UNALZHEIMER</span>
+                <span class="status-green">[STATUS: ACTIVE]</span>
+              </div>
+              <div class="project-card-body">
+                <h3 class="proj-title">NATIVE ANDROID MEMORY &amp; COGNITIVE TRAINING GAME</h3>
+                <p class="proj-desc">
+                  Native Android cognitive brain-training game inspired by the Chimp Test challenge, engineered with
+                  100% Kotlin
+                  and Jetpack Compose featuring 3D card flips, progressive levels, StateFlow reactive architecture, and
+                  Preferences DataStore.
+                </p>
+                <div class="proj-tags-row">
+                  <span class="tag-small">Kotlin</span>
+                  <span class="tag-small">Jetpack Compose</span>
+                  <span class="tag-small">MVVM / Clean Arch</span>
+                  <span class="tag-small">DataStore</span>
+                </div>
+                <div class="proj-metrics-box">
+                  <div>&gt; ENGINE: Jetpack Compose 3D Flip &amp; StateFlow</div>
+                  <div>&gt; AUDIO &amp; STORAGE: SoundPool &amp; Preferences DataStore</div>
+                </div>
+                <div class="proj-actions-row">
+                  <a href="https://github.com/achmadichzan/Unalzheimer" target="_blank" rel="noopener noreferrer"
+                    class="proj-action-link"
+                    data-notify="UNALZHEIMER: Native Android memory training game built with Jetpack Compose">
+                    [VIEW REPO -&gt;]
+                  </a>
+                </div>
               </div>
             </div>
           </div>

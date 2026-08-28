@@ -681,7 +681,7 @@ a {
 
 .projects-3col-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 1.75rem;
 }
 
@@ -756,8 +756,15 @@ a {
   font-weight: 700;
 }
 
-.proj-action-link {
+.proj-actions-row {
   margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.proj-action-link {
   font-size: 0.82rem;
   font-weight: 700;
   color: var(--accent-blue);

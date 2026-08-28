@@ -1,0 +1,22 @@
+{
+  "name": "Achmad Ichzan — Full-Stack Developer",
+  "short_name": "Achmad Ichzan",
+  "description": "Portfolio of Achmad Ichzan, Full-Stack Developer building web and mobile applications with PHP, Kotlin, and Python.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F4F4F0",
+  "theme_color": "#F4F4F0",
+  "icons": [
+    {
+      "src": "assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/avatar.webp",
+      "sizes": "380x320",
+      "type": "image/webp"
+    }
+  ]
+}

@@ -307,7 +307,7 @@ function toggleCliDrawer(e) {
     const input = document.getElementById('cliInput');
     if (input) input.focus();
   } else if (trigger) {
-    trigger.focus();
+    trigger.focus({ preventScroll: true });
   }
 }
 
@@ -331,32 +331,36 @@ function initTerminalPreloader() {
   const spinner = document.getElementById('preloaderSpinner');
   if (!preloader || !spinner) return;
 
-  document.body.style.overflow = 'hidden';
-
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (prefersReducedMotion) {
     preloader.classList.add('hide');
     document.body.style.overflow = '';
-    setTimeout(() => preloader.remove(), 400);
+    setTimeout(() => preloader.remove(), 200);
     return;
   }
 
+  document.body.style.overflow = 'hidden';
   const frames = ['|', '/', '-', '\\'];
   let frameIdx = 0;
 
   const spinnerInterval = setInterval(() => {
     frameIdx = (frameIdx + 1) % frames.length;
     spinner.textContent = frames[frameIdx];
-  }, 100);
+  }, 75);
 
-  setTimeout(() => {
+  const dismissPreloader = () => {
     clearInterval(spinnerInterval);
     preloader.classList.add('hide');
     document.body.style.overflow = '';
-    setTimeout(() => {
-      preloader.remove();
-    }, 400);
-  }, 2000);
+    setTimeout(() => preloader.remove(), 350);
+  };
+
+  if (document.readyState === 'complete') {
+    setTimeout(dismissPreloader, 350);
+  } else {
+    window.addEventListener('load', () => setTimeout(dismissPreloader, 250));
+    setTimeout(dismissPreloader, 800);
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -411,7 +415,7 @@ document.addEventListener('DOMContentLoaded', () => {
         drawer.classList.remove('open');
         if (trigger) {
           trigger.setAttribute('aria-expanded', 'false');
-          trigger.focus();
+          trigger.focus({ preventScroll: true });
         }
       }
     } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
@@ -515,11 +519,11 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (mainCmd === 'status') {
           responseRow.innerHTML = `SYS_STATUS: Open to Work &amp; Freelance (Makassar / Remote)`;
         } else if (mainCmd === 'stack') {
-          responseRow.innerHTML = `CORE: PHP, Laravel, Kotlin, Python, TensorFlow, Node.js, Rust, Docker, MySQL`;
+          responseRow.innerHTML = `CORE: PHP, Kotlin, Python, Bun, Node.js, Rust<br>FRAMEWORKS: Laravel, Vue, Svelte, Tailwind CSS, FastAPI<br>DATABASE: MySQL, SQLite<br>TOOLS: Docker, WSL2, Android Studio, VS Code`;
         } else if (mainCmd === 'skills') {
           responseRow.innerHTML = `[CORE COMPETENCY TREE]<br>PHP / LARAVEL       [████████████████░░] 88%<br>KOTLIN / ANDROID    [█████████████████░] 92%<br>PYTHON / YOLO / ML  [███████████████░░░] 82%<br>MYSQL / DOCKER / CI [███████████████░░░] 85%`;
         } else if (mainCmd === 'projects') {
-          responseRow.innerHTML = `DEPLOYMENTS:<br>1. <a href="https://silsilahku.achmadichzan9.workers.dev/" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">Silsilahku</a> (Svelte, SQLite, Canvas Graph)<br>2. <a href="https://huggingface.co/spaces/PJK-GU108/EduReflect" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">EduReflect</a> (Python, YOLO, Computer Vision)<br>3. <a href="https://github.com/achmadichzan/Rangkum" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">Rangkum</a> (Kotlin, Vosk STT, AI Summarizer)`;
+          responseRow.innerHTML = `DEPLOYMENTS:<br>1. <a href="https://silsilahku.achmadichzan9.workers.dev/" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">Silsilahku</a> (<a href="https://github.com/achmadichzan/silsilahku" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">Repo</a>) - Svelte, SQLite, Canvas Graph<br>2. <a href="https://huggingface.co/spaces/PJK-GU108/EduReflect" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">EduReflect</a> (<a href="https://github.com/PJK-GU108/EduReflect" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">Repo</a>) - Python, YOLO, Computer Vision<br>3. <a href="https://github.com/achmadichzan/Rangkum" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">Rangkum</a> (Kotlin, Vosk STT, AI Summarizer)<br>4. <a href="https://github.com/achmadichzan/app_locker" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">App Locker</a> (Rust, Slint UI, Windows NTDLL, Named Pipes IPC)<br>5. <a href="https://github.com/achmadichzan/Unalzheimer" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">Unalzheimer</a> (Kotlin, Jetpack Compose, MVVM, DataStore)`;
         } else if (mainCmd === 'experience' || mainCmd === 'cv' || mainCmd === 'resume') {
           responseRow.innerHTML = `EXPERIENCE LOG:<br>- Jan 2026 - Present: Full Stack Developer @ PT Global Connection Indonesia<br>- Jul 2025 - Nov 2025: ML Cohort @ Dicoding Indonesia<br>- Dec 2023 - Jan 2024: Mobile Apps Developer @ PT Bank Mandiri (Persero) Tbk.<br>- Feb 2023 - Jul 2023: Mobile Cohort @ Bangkit Academy`;
         } else if (mainCmd === 'matrix') {
@@ -544,7 +548,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (mainCmd === 'sudo') {
           responseRow.innerHTML = `<span style="color:#FF4444;">Permission denied: User 'guest' is not in the sudoers file. This incident will be logged.</span>`;
         } else if (mainCmd === 'contact') {
-          responseRow.innerHTML = `WhatsApp: <a href="https://wa.me/6282291871923" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">082291871923</a><br>Instagram: <a href="https://instagram.com/achmadichzan_" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">@achmadichzan_</a><br>Email: <a href="mailto:achmadichzan9@gmail.com" style="color:inherit;text-decoration:underline;">achmadichzan9@gmail.com</a>`;
+          responseRow.innerHTML = `WhatsApp: <a href="https://wa.me/6282291871923?text=Halo%20Achmad%20Ichzan,%20saya%20tertarik%20untuk%20diskusi%20proyek." target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">082291871923 (Chat Direct)</a><br>Instagram: <a href="https://instagram.com/achmadichzan_" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">@achmadichzan_</a><br>Email: <a href="mailto:achmadichzan9@gmail.com" style="color:inherit;text-decoration:underline;">achmadichzan9@gmail.com</a>`;
         } else if (mainCmd === 'email') {
           if (navigator.clipboard) {
             navigator.clipboard.writeText('achmadichzan9@gmail.com')
@@ -616,7 +620,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    const startDelay = document.getElementById('terminalPreloader') ? 2100 : 300;
+    const startDelay = document.getElementById('terminalPreloader') ? 450 : 150;
     setTimeout(typePrompt, startDelay);
   }
 
