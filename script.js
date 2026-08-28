@@ -246,31 +246,59 @@ function toggleMobileNav(e) {
   }
 }
 
-function setTheme(theme, notify = false) {
-  const validTheme = ['dark', 'matrix', 'light'].includes(theme) ? theme : 'light';
+const VALID_THEMES = ['light', 'win95', 'matrix', 'dark'];
 
-  document.body.classList.remove('theme-dark', 'theme-matrix');
-  if (validTheme === 'dark') {
-    document.body.classList.add('theme-dark');
-  } else if (validTheme === 'matrix') {
-    document.body.classList.add('theme-matrix');
+function setTheme(theme, notify = false) {
+  const validTheme = VALID_THEMES.includes(theme) ? theme : 'light';
+
+  const themeClasses = ['theme-dark', 'theme-matrix', 'theme-win95'];
+  document.body.classList.remove(...themeClasses);
+  document.documentElement.classList.remove(...themeClasses);
+
+  if (validTheme !== 'light') {
+    const targetClass = `theme-${validTheme}`;
+    document.body.classList.add(targetClass);
+    document.documentElement.classList.add(targetClass);
   }
 
   const metaThemeColor = document.querySelector('meta[name="theme-color"]');
   if (metaThemeColor) {
-    const colors = { light: '#F4F4F0', dark: '#000000', matrix: '#0D0208' };
+    const colors = { light: '#F4F4F0', win95: '#008080', matrix: '#0D0208', dark: '#000000' };
     metaThemeColor.setAttribute('content', colors[validTheme] || '#F4F4F0');
+  }
+
+  const themeBtn = document.getElementById('themeToggleBtn');
+  if (themeBtn) {
+    if (validTheme === 'win95') {
+      themeBtn.setAttribute('title', 'Switch to Neo-Brutalist Theme');
+      themeBtn.setAttribute('aria-label', 'Switch to Neo-Brutalist Theme');
+    } else {
+      themeBtn.setAttribute('title', 'Switch to Windows 95 Retro Theme');
+      themeBtn.setAttribute('aria-label', 'Switch to Windows 95 Retro Theme');
+    }
+  }
+
+  const cliHeaderTitle = document.querySelector('.cli-header span');
+  if (cliHeaderTitle) {
+    if (validTheme === 'win95') {
+      cliHeaderTitle.textContent = 'MS-DOS Prompt - DEV_ROOT';
+    } else if (validTheme === 'matrix') {
+      cliHeaderTitle.textContent = 'CYBER_NODE // 0xROOT';
+    } else {
+      cliHeaderTitle.textContent = 'TERMINAL_SESSION // ROOT';
+    }
   }
 
   try {
     localStorage.setItem('portfolio_theme', validTheme);
-  } catch (e) {}
+  } catch (e) { }
 
   if (notify) {
     const messages = {
-      light: 'Default Brutalist Light Mode restored',
+      light: 'Neo-Brutalist Light Mode activated',
+      win95: 'Dial-Up 90s / Windows 95 Retro Theme activated',
+      matrix: 'Cyber Matrix Terminal Mode activated',
       dark: 'Inverted Dark Mode activated',
-      matrix: 'Cyber Matrix Mode activated',
     };
     showToast(messages[validTheme]);
   }
@@ -279,10 +307,10 @@ function setTheme(theme, notify = false) {
 function getStoredTheme() {
   try {
     const saved = localStorage.getItem('portfolio_theme');
-    if (saved && ['light', 'dark', 'matrix'].includes(saved)) {
+    if (saved && VALID_THEMES.includes(saved)) {
       return saved;
     }
-  } catch (e) {}
+  } catch (e) { }
   return 'light';
 }
 
@@ -296,6 +324,8 @@ function closeMobileNav() {
   }
 }
 
+let matrixInterval = null;
+
 function toggleCliDrawer(e) {
   if (e) e.preventDefault();
   const drawer = document.getElementById('cliDrawer');
@@ -306,8 +336,14 @@ function toggleCliDrawer(e) {
   if (isOpen) {
     const input = document.getElementById('cliInput');
     if (input) input.focus();
-  } else if (trigger) {
-    trigger.focus({ preventScroll: true });
+  } else {
+    if (matrixInterval) {
+      clearInterval(matrixInterval);
+      matrixInterval = null;
+    }
+    if (trigger) {
+      trigger.focus({ preventScroll: true });
+    }
   }
 }
 
@@ -329,7 +365,18 @@ function triggerHtmxNotification(msg) {
 function initTerminalPreloader() {
   const preloader = document.getElementById('terminalPreloader');
   const spinner = document.getElementById('preloaderSpinner');
+  const promptEl = preloader ? preloader.querySelector('.preloader-prompt') : null;
+  const headerSpan = preloader ? preloader.querySelector('.preloader-header span') : null;
   if (!preloader || !spinner) return;
+
+  const currentTheme = getStoredTheme();
+  if (currentTheme === 'win95') {
+    if (headerSpan) headerSpan.textContent = 'Microsoft Windows 95 // Starting...';
+    if (promptEl) promptEl.textContent = 'C:\\ACHMAD_ICHZAN> ';
+  } else if (currentTheme === 'matrix') {
+    if (headerSpan) headerSpan.textContent = 'MATRIX_SYS // DECRYPTING_NODE';
+    if (promptEl) promptEl.textContent = 'root@matrix:~#';
+  }
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (prefersReducedMotion) {
@@ -340,13 +387,15 @@ function initTerminalPreloader() {
   }
 
   document.body.style.overflow = 'hidden';
-  const frames = ['|', '/', '-', '\\'];
+  const frames = currentTheme === 'win95'
+    ? ['[■░░░░]', '[■■░░░]', '[■■■░░]', '[■■■■░]', '[■■■■■]']
+    : ['|', '/', '-', '\\'];
   let frameIdx = 0;
 
   const spinnerInterval = setInterval(() => {
     frameIdx = (frameIdx + 1) % frames.length;
     spinner.textContent = frames[frameIdx];
-  }, 75);
+  }, currentTheme === 'win95' ? 70 : 75);
 
   const dismissPreloader = () => {
     clearInterval(spinnerInterval);
@@ -364,8 +413,8 @@ function initTerminalPreloader() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  initTerminalPreloader();
   setTheme(getStoredTheme(), false);
+  initTerminalPreloader();
   initStaticTelemetry();
   startTelemetryEngine();
 
@@ -402,6 +451,15 @@ document.addEventListener('DOMContentLoaded', () => {
     cliTriggerBtn.addEventListener('click', toggleCliDrawer);
   }
 
+  const themeToggleBtn = document.getElementById('themeToggleBtn');
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+      const current = getStoredTheme();
+      const nextTheme = current === 'win95' ? 'light' : 'win95';
+      setTheme(nextTheme, true);
+    });
+  }
+
   const cliCloseBtn = document.getElementById('cliCloseBtn');
   if (cliCloseBtn) {
     cliCloseBtn.addEventListener('click', toggleCliDrawer);
@@ -413,6 +471,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const trigger = document.getElementById('cliTriggerBtn');
       if (drawer && drawer.classList.contains('open')) {
         drawer.classList.remove('open');
+        if (matrixInterval) {
+          clearInterval(matrixInterval);
+          matrixInterval = null;
+        }
         if (trigger) {
           trigger.setAttribute('aria-expanded', 'false');
           trigger.focus({ preventScroll: true });
@@ -438,11 +500,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const cliScreen = document.getElementById('cliScreen');
   const cliCommands = [
     'help', 'status', 'stack', 'skills', 'projects', 'experience', 'cv',
-    'contact', 'email', 'repo', 'theme', 'matrix', 'sudo', 'whoami', 'clear'
+    'contact', 'email', 'repo', 'theme', 'win95', 'matrix', 'dark', 'sudo', 'whoami', 'clear'
   ];
+  const MAX_COMMAND_HISTORY = 50;
   const commandHistory = [];
   let historyIndex = -1;
-  let matrixInterval = null;
 
   function runMatrixEffect() {
     if (matrixInterval) clearInterval(matrixInterval);
@@ -502,6 +564,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!rawCmd) return;
 
         commandHistory.push(rawCmd);
+        if (commandHistory.length > MAX_COMMAND_HISTORY) {
+          commandHistory.shift();
+        }
         historyIndex = -1;
 
         const logRow = document.createElement('div');
@@ -515,7 +580,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const arg = parts[1] || '';
 
         if (mainCmd === 'help') {
-          responseRow.innerHTML = `Available commands: <br>- <strong>status</strong>: View availability &amp; location<br>- <strong>stack</strong>: List core technologies<br>- <strong>skills</strong>: Visual ASCII proficiency breakdown<br>- <strong>projects</strong>: View deployed applications<br>- <strong>experience</strong> / <strong>cv</strong>: Work history breakdown<br>- <strong>matrix</strong>: Run terminal stream easter egg<br>- <strong>theme [dark|light|matrix]</strong>: Switch theme mode<br>- <strong>contact</strong>: View contact channels<br>- <strong>email</strong>: Copy email address to clipboard<br>- <strong>whoami</strong>: Display visitor hardware session<br>- <strong>repo</strong>: Visit GitHub repository<br>- <strong>clear</strong>: Reset terminal screen`;
+          responseRow.innerHTML = `Available commands: <br>- <strong>status</strong>: View availability &amp; location<br>- <strong>stack</strong>: List core technologies<br>- <strong>skills</strong>: Visual ASCII proficiency breakdown<br>- <strong>projects</strong>: View deployed applications<br>- <strong>experience</strong> / <strong>cv</strong>: Work history breakdown<br>- <strong>matrix</strong>: Run terminal stream easter egg<br>- <strong>theme [light|win95|matrix|dark]</strong>: Switch theme mode<br>- <strong>win95</strong>: Activate Dial-Up 90s / Windows 95 theme<br>- <strong>contact</strong>: View contact channels<br>- <strong>email</strong>: Copy email address to clipboard<br>- <strong>whoami</strong>: Display visitor hardware session<br>- <strong>repo</strong>: Visit GitHub repository<br>- <strong>clear</strong>: Reset terminal screen`;
         } else if (mainCmd === 'status') {
           responseRow.innerHTML = `SYS_STATUS: Open to Work &amp; Freelance (Makassar / Remote)`;
         } else if (mainCmd === 'stack') {
@@ -530,17 +595,25 @@ document.addEventListener('DOMContentLoaded', () => {
           runMatrixEffect();
           this.value = '';
           return;
+        } else if (mainCmd === 'win95' || mainCmd === 'dialup' || mainCmd === 'retro') {
+          setTheme('win95', false);
+          responseRow.innerHTML = `THEME: Dial-Up 90s / Windows 95 Retro Theme activated.`;
+          showToast('Win95 Theme Activated');
+        } else if (mainCmd === 'dark') {
+          setTheme('dark', false);
+          responseRow.innerHTML = `THEME: DARK Mode activated.`;
+          showToast('Dark Mode Activated');
         } else if (mainCmd === 'theme') {
-          if (arg === 'dark' || arg === 'matrix' || arg === 'light') {
+          if (VALID_THEMES.includes(arg)) {
             setTheme(arg, false);
             responseRow.innerHTML = `THEME: ${arg.toUpperCase()} Mode activated.`;
             showToast(`${arg.toUpperCase()} Mode Activated`);
-          } else if (arg === 'reset') {
+          } else if (arg === 'reset' || arg === 'brutalist') {
             setTheme('light', false);
-            responseRow.innerHTML = `THEME: Default Brutalist Light Mode restored.`;
-            showToast('Default Theme Restored');
+            responseRow.innerHTML = `THEME: Neo-Brutalist Light Mode restored.`;
+            showToast('Brutalist Theme Restored');
           } else {
-            responseRow.innerHTML = `Usage: theme [dark | matrix | light]`;
+            responseRow.innerHTML = `Usage: theme [light | win95 | matrix | dark]`;
           }
         } else if (mainCmd === 'whoami') {
           const specs = getClientStaticSpecs();
@@ -704,5 +777,12 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }, { rootMargin: '-20% 0px -70% 0px' });
     sections.forEach(sec => scrollSpyObserver.observe(sec));
+  }
+
+  // Service Worker Registration for Offline PWA Support
+  if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js').catch(() => { });
+    });
   }
 });

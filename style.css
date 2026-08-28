@@ -1,12 +1,4 @@
 /* Fonts */
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 400 800;
-  font-display: swap;
-  src: url(./assets/fonts/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
 
 @font-face {
   font-family: 'Space Mono';
@@ -32,17 +24,23 @@
   --bg-white: #FFFFFF;
   --bg-dark: #000000;
   --bg-terminal: #0A0A0A;
+  --bg-subtle: #EAEAE4;
+  --bg-pill: #EFEFEA;
 
   --accent-green: #00FF66;
   --accent-blue: #0000FF;
+  --accent-danger: #FF4444;
   --border-color: #000000;
+  --border-dim: #333333;
 
   --text-dark: #000000;
   --text-light: #FFFFFF;
   --text-muted: #555555;
+  --text-dimmed: #888888;
+  --text-body: #333333;
 
   --font-headline: Impact, 'Haettenschweiler', 'Arial Narrow Bold', sans-serif-condensed, 'Arial Black', -apple-system, sans-serif;
-  --font-mono: 'Space Mono', 'JetBrains Mono', 'Courier New', monospace;
+  --font-mono: 'Space Mono', 'Courier New', monospace;
 
   --border-thick: 3px solid #000000;
   --border-heavy: 4px solid #000000;
@@ -236,6 +234,46 @@ a {
   box-shadow: 1px 1px 0px #000000;
 }
 
+/* Floating Theme Switcher FAB (Middle-Right) */
+.theme-fab-btn {
+  position: fixed;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--bg-white, #FFFFFF);
+  color: var(--text-dark, #000000);
+  border: var(--border-thick, 3px solid #000000);
+  box-shadow: 3px 3px 0px #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 999;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.theme-fab-btn:hover {
+  background: var(--accent-green, #00FF66);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 4px 4px 0px #000000;
+}
+
+.theme-fab-btn:active {
+  transform: translateY(-50%) scale(0.95);
+  box-shadow: 1px 1px 0px #000000;
+}
+
+.theme-fab-btn .fab-icon-win95 {
+  display: block;
+}
+
+.theme-fab-btn .fab-icon-brutalist {
+  display: none;
+}
+
 /* Hamburger Menu Button (Brutalist) */
 .hamburger-btn {
   display: none;
@@ -334,7 +372,7 @@ a {
 }
 
 .hero-spec-chip {
-  background: #EAEAE4;
+  background: var(--bg-subtle);
   border: 2px solid var(--border-color);
   font-size: 0.75rem;
   font-weight: 700;
@@ -724,7 +762,7 @@ a {
 
 .proj-desc {
   font-size: 0.82rem;
-  color: #333333;
+  color: var(--text-body);
   line-height: 1.55;
   margin-bottom: 1.25rem;
 }
@@ -748,7 +786,7 @@ a {
   padding: 0.2rem 0.5rem;
   font-size: 0.72rem;
   font-weight: 700;
-  background: #EFEFEA;
+  background: var(--bg-pill);
 }
 
 .status-green {
@@ -805,7 +843,7 @@ a {
   font-weight: 700;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  border-right: 2px solid #333333;
+  border-right: 2px solid var(--border-dim);
 }
 
 .brutalist-table th:last-child {
@@ -957,7 +995,7 @@ a {
 .cli-header {
   background: var(--bg-dark);
   color: var(--accent-green);
-  border-bottom: 2px solid #333333;
+  border-bottom: 2px solid var(--border-dim);
   padding: 0.5rem 0.85rem;
   font-size: 0.8rem;
   font-weight: 700;
@@ -969,24 +1007,31 @@ a {
 .cli-close-btn {
   background: transparent;
   border: none;
-  color: #FF4444;
+  color: var(--accent-danger);
   font-family: var(--font-mono);
   font-weight: 700;
   cursor: pointer;
   font-size: 0.9rem;
-  outline: none !important;
 }
 
 .cli-close-btn:hover {
   color: #FFFFFF;
 }
 
-.cli-close-btn:focus,
-.cli-close-btn:focus-visible,
-.cli-input:focus,
+.cli-close-btn:focus:not(:focus-visible),
+.cli-input:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+.cli-close-btn:focus-visible {
+  outline: 2px solid var(--accent-green) !important;
+  outline-offset: 2px;
+}
+
 .cli-input:focus-visible {
-  outline: none !important;
-  box-shadow: none !important;
+  outline: 2px solid var(--accent-green) !important;
+  outline-offset: -2px;
 }
 
 .cli-screen {
@@ -1000,7 +1045,7 @@ a {
 
 .cli-input-row {
   display: flex;
-  border-top: 2px solid #333333;
+  border-top: 2px solid var(--border-dim);
   background: #111111;
 }
 
@@ -1014,7 +1059,6 @@ a {
   flex: 1;
   background: transparent;
   border: none;
-  outline: none !important;
   color: #FFFFFF;
   font-family: var(--font-mono);
   font-size: 0.8rem;
@@ -1147,6 +1191,42 @@ a {
     font-size: 0.88rem;
   }
 
+  .theme-fab-btn {
+    right: 0.75rem;
+    width: 42px;
+    height: 42px;
+  }
+
+  body.theme-dark .nav-menu-wrapper {
+    background: #181818;
+    border-color: #FFFFFF;
+  }
+
+  body.theme-dark .nav-links li {
+    border-bottom-color: #444444;
+  }
+
+  body.theme-matrix .nav-menu-wrapper {
+    background: #050E07 !important;
+    border-color: #00FF66 !important;
+  }
+
+  body.theme-matrix .nav-links li {
+    border-bottom-color: #00FF66 !important;
+  }
+
+  body.theme-win95 .nav-menu-wrapper {
+    background: #C0C0C0 !important;
+    border-bottom: 2px solid #000000 !important;
+    border-left: 2px solid #FFFFFF !important;
+    border-right: 2px solid #000000 !important;
+    box-shadow: 2px 4px 0px rgba(0, 0, 0, 0.4) !important;
+  }
+
+  body.theme-win95 .nav-links li {
+    border-bottom: 1px solid #808080 !important;
+  }
+
   .section-about-metrics,
   .section-tech-log,
   .section-deployments,
@@ -1266,7 +1346,7 @@ a {
   }
 }
 
-/* 12. Theme Modes */
+html.theme-dark,
 body.theme-dark {
   --bg-main: #121212;
   --bg-white: #1A1A1A;
@@ -1302,12 +1382,24 @@ body.theme-dark .proj-desc {
 
 body.theme-dark .tech-pill,
 body.theme-dark .tag-small,
-body.theme-dark .hero-spec-chip {
+body.theme-dark .hero-spec-chip,
+body.theme-dark .theme-toggle-btn {
   background: #252525;
   color: #FFFFFF;
   border-color: #FFFFFF;
 }
 
+body.theme-dark .hamburger-btn {
+  background: #252525;
+  border-color: #FFFFFF;
+  box-shadow: var(--shadow-hard-sm);
+}
+
+body.theme-dark .hamburger-bar {
+  background-color: #FFFFFF;
+}
+
+html.theme-matrix,
 body.theme-matrix {
   --bg-main: #000000;
   --bg-white: #050E07;
@@ -1351,7 +1443,8 @@ body.theme-matrix .dev-log-frame {
 
 body.theme-matrix .tech-pill,
 body.theme-matrix .tag-small,
-body.theme-matrix .hero-spec-chip {
+body.theme-matrix .hero-spec-chip,
+body.theme-matrix .theme-toggle-btn {
   background: #0A1C0E !important;
   color: #00FF66 !important;
   border-color: #00FF66 !important;
@@ -1422,7 +1515,7 @@ body.theme-matrix .hero-cta-btn:hover * {
 
 .preloader-header {
   background: #1A1A1A;
-  color: #888888;
+  color: var(--text-dimmed);
   padding: 0.4rem 0.75rem;
   font-size: 0.75rem;
   font-weight: 700;
@@ -1454,7 +1547,7 @@ body.theme-dark .terminal-preloader {
 }
 
 body.theme-dark .preloader-terminal-box {
-  border-color: #333333;
+  border-color: var(--border-dim);
   box-shadow: 5px 5px 0px #222222;
 }
 
@@ -1465,4 +1558,398 @@ body.theme-matrix .terminal-preloader {
 body.theme-matrix .preloader-terminal-box {
   border-color: #00FF66;
   box-shadow: 5px 5px 0px rgba(0, 255, 102, 0.4);
+}
+
+/* 12c. Dial-Up 90s / Windows 95 Retro Theme */
+html.theme-win95,
+body.theme-win95 {
+  --bg-main: #008080;
+  --bg-white: #C0C0C0;
+  --bg-dark: #000080;
+  --bg-terminal: #000000;
+  --text-dark: #000000;
+  --text-light: #FFFFFF;
+  --accent-green: #008000;
+  --accent-blue: #000080;
+  --border-color: #808080;
+  background-color: #008080;
+}
+
+body.theme-win95 .master-wrapper {
+  border-bottom: 2px solid #000000;
+}
+
+body.theme-win95 .frame-container {
+  background: #C0C0C0;
+  border-top: 3px solid #DFDFDF;
+  border-left: 3px solid #DFDFDF;
+  border-right: 3px solid #000000;
+  border-bottom: 3px solid #000000;
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.5);
+}
+
+body.theme-win95 .top-nav {
+  background: #C0C0C0;
+  border-bottom: 2px solid #808080;
+}
+
+body.theme-win95 .hero-section,
+body.theme-win95 .section-about-metrics,
+body.theme-win95 .section-tech-log,
+body.theme-win95 .section-deployments,
+body.theme-win95 .section-history {
+  background: #C0C0C0;
+  border-bottom: 2px solid #808080;
+}
+
+body.theme-win95 .hero-right {
+  background-color: #008080;
+  background-image: radial-gradient(#004D40 1.2px, transparent 1.2px);
+}
+
+body.theme-win95 .terminal-card,
+body.theme-win95 .project-card-brutalist,
+body.theme-win95 .dev-log-frame,
+body.theme-win95 .metric-card,
+body.theme-win95 .table-container {
+  background: #C0C0C0;
+  border-top: 2px solid #FFFFFF;
+  border-left: 2px solid #FFFFFF;
+  border-right: 2px solid #000000;
+  border-bottom: 2px solid #000000;
+  box-shadow: 2px 2px 0px #404040;
+}
+
+body.theme-win95 .brutalist-table {
+  background: #C0C0C0 !important;
+  color: #000000 !important;
+}
+
+body.theme-win95 .brutalist-table td {
+  background: #C0C0C0 !important;
+  color: #000000 !important;
+  border-bottom: 1px solid #808080 !important;
+  border-right: 1px solid #808080 !important;
+}
+
+body.theme-win95 .brutalist-table tbody tr:hover td {
+  background: #000080 !important;
+  color: #FFFFFF !important;
+}
+
+body.theme-win95 .terminal-header,
+body.theme-win95 .project-card-header,
+body.theme-win95 .dev-log-title {
+  background: linear-gradient(90deg, #000080 0%, #1084D0 100%) !important;
+  color: #FFFFFF !important;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+body.theme-win95 .dev-log-title {
+  font-size: 1.5rem;
+  border-bottom: 2px solid #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0.35rem 0.5rem;
+  margin-bottom: 1rem;
+}
+
+body.theme-win95 .status-green {
+  color: #008000 !important;
+  font-weight: 700;
+}
+
+body.theme-win95 .project-card-header .status-green,
+body.theme-win95 .terminal-header .status-green {
+  color: #00FF66 !important;
+}
+
+body.theme-win95 .dev-log-meta {
+  border-top: 1px solid #808080;
+  color: #000000;
+}
+
+body.theme-win95 .hero-cta-btn,
+body.theme-win95 .nav-cta-btn,
+body.theme-win95 .tech-pill,
+body.theme-win95 .tag-small,
+body.theme-win95 .hero-spec-chip {
+  background: #C0C0C0 !important;
+  color: #000000 !important;
+  border-top: 2px solid #FFFFFF !important;
+  border-left: 2px solid #FFFFFF !important;
+  border-right: 2px solid #000000 !important;
+  border-bottom: 2px solid #000000 !important;
+  box-shadow: none !important;
+}
+
+body.theme-win95 .hero-cta-btn:hover,
+body.theme-win95 .nav-cta-btn:hover,
+body.theme-win95 .tech-pill:hover {
+  background: #D4D0C8 !important;
+  transform: none;
+}
+
+body.theme-win95 .hero-cta-btn:active,
+body.theme-win95 .nav-cta-btn:active {
+  border-top: 2px solid #000000 !important;
+  border-left: 2px solid #000000 !important;
+  border-right: 2px solid #FFFFFF !important;
+  border-bottom: 2px solid #FFFFFF !important;
+  transform: translate(1px, 1px);
+}
+
+body.theme-win95 .theme-fab-btn {
+  background: #C0C0C0 !important;
+  color: #000000 !important;
+  border-top: 3px solid #FFFFFF !important;
+  border-left: 3px solid #FFFFFF !important;
+  border-right: 3px solid #000000 !important;
+  border-bottom: 3px solid #000000 !important;
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.6) !important;
+}
+
+body.theme-win95 .theme-fab-btn:hover {
+  background: #D4D0C8 !important;
+  transform: translateY(-50%) scale(1.08);
+}
+
+body.theme-win95 .theme-fab-btn:active {
+  border-top: 3px solid #000000 !important;
+  border-left: 3px solid #000000 !important;
+  border-right: 3px solid #FFFFFF !important;
+  border-bottom: 3px solid #FFFFFF !important;
+  transform: translateY(-50%) translate(1px, 1px);
+}
+
+body.theme-win95 .theme-fab-btn .fab-icon-win95 {
+  display: none;
+}
+
+body.theme-win95 .theme-fab-btn .fab-icon-brutalist {
+  display: block;
+  color: #000080;
+}
+
+body.theme-win95 .status-tag,
+body.theme-win95 .status-badge-dark {
+  background: #C0C0C0 !important;
+  color: #000080 !important;
+  border-top: 2px solid #808080 !important;
+  border-left: 2px solid #808080 !important;
+  border-right: 2px solid #FFFFFF !important;
+  border-bottom: 2px solid #FFFFFF !important;
+  box-shadow: none !important;
+}
+
+body.theme-win95 .telemetry-ticker-bar {
+  background: #C0C0C0 !important;
+  color: #000000 !important;
+  border-top: 2px solid #808080 !important;
+  border-bottom: 2px solid #FFFFFF !important;
+}
+
+body.theme-win95 .brutalist-toast {
+  background: #C0C0C0 !important;
+  color: #000000 !important;
+  border-top: 3px solid #FFFFFF !important;
+  border-left: 3px solid #FFFFFF !important;
+  border-right: 3px solid #000000 !important;
+  border-bottom: 3px solid #000000 !important;
+  box-shadow: 3px 3px 0px #000000 !important;
+}
+
+body.theme-win95 .terminal-preloader,
+html.theme-win95 .terminal-preloader {
+  background-color: #008080 !important;
+}
+
+body.theme-win95 .preloader-terminal-box,
+html.theme-win95 .preloader-terminal-box {
+  background: #C0C0C0 !important;
+  color: #000000 !important;
+  border-top: 3px solid #FFFFFF !important;
+  border-left: 3px solid #FFFFFF !important;
+  border-right: 3px solid #000000 !important;
+  border-bottom: 3px solid #000000 !important;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.6) !important;
+  min-width: 320px;
+}
+
+body.theme-win95 .preloader-header,
+html.theme-win95 .preloader-header {
+  background: linear-gradient(90deg, #000080 0%, #1084D0 100%) !important;
+  color: #FFFFFF !important;
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #808080;
+}
+
+body.theme-win95 .preloader-content,
+html.theme-win95 .preloader-content {
+  background: #C0C0C0 !important;
+  color: #000000 !important;
+  padding: 1.25rem 1.5rem;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+body.theme-win95 .preloader-prompt,
+html.theme-win95 .preloader-prompt {
+  color: #000000 !important;
+  font-family: 'Space Mono', 'Courier New', monospace;
+  font-weight: 700;
+}
+
+body.theme-win95 .preloader-spinner,
+html.theme-win95 .preloader-spinner {
+  color: #000080 !important;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+body.theme-win95 .hamburger-btn {
+  background: #C0C0C0 !important;
+  border-top: 2px solid #FFFFFF !important;
+  border-left: 2px solid #FFFFFF !important;
+  border-right: 2px solid #000000 !important;
+  border-bottom: 2px solid #000000 !important;
+  box-shadow: none !important;
+}
+
+body.theme-win95 .hamburger-btn:active {
+  border-top: 2px solid #000000 !important;
+  border-left: 2px solid #000000 !important;
+  border-right: 2px solid #FFFFFF !important;
+  border-bottom: 2px solid #FFFFFF !important;
+}
+
+body.theme-win95 .hamburger-bar {
+  background-color: #000000 !important;
+}
+
+/* Windows 95 MS-DOS Prompt CLI Drawer */
+body.theme-win95 .cli-drawer {
+  background: #C0C0C0 !important;
+  border-top: 3px solid #FFFFFF !important;
+  border-left: 3px solid #FFFFFF !important;
+  border-right: 3px solid #000000 !important;
+  border-bottom: 3px solid #000000 !important;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.6) !important;
+  padding: 3px;
+}
+
+body.theme-win95 .cli-header {
+  background: linear-gradient(90deg, #000080 0%, #1084D0 100%) !important;
+  color: #FFFFFF !important;
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 3px 6px;
+  border-bottom: 2px solid #808080;
+}
+
+body.theme-win95 .cli-close-btn {
+  background: #C0C0C0 !important;
+  color: #000000 !important;
+  border-top: 2px solid #FFFFFF !important;
+  border-left: 2px solid #FFFFFF !important;
+  border-right: 2px solid #000000 !important;
+  border-bottom: 2px solid #000000 !important;
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+}
+
+body.theme-win95 .cli-close-btn:hover {
+  background: #D4D0C8 !important;
+}
+
+body.theme-win95 .cli-close-btn:active {
+  border-top: 2px solid #000000 !important;
+  border-left: 2px solid #000000 !important;
+  border-right: 2px solid #FFFFFF !important;
+  border-bottom: 2px solid #FFFFFF !important;
+}
+
+body.theme-win95 .cli-screen {
+  background: #000000 !important;
+  color: #C0C0C0 !important;
+  border: 2px inset #FFFFFF;
+  margin: 3px 0 0 0;
+  font-family: 'Space Mono', 'Courier New', monospace;
+}
+
+body.theme-win95 .cli-screen a {
+  color: #00FF66 !important;
+  text-decoration: underline;
+}
+
+body.theme-win95 .cli-input-row {
+  background: #000000 !important;
+  border-top: 1px solid #333333;
+  margin: 0;
+  border-left: 2px inset #FFFFFF;
+  border-right: 2px inset #FFFFFF;
+  border-bottom: 2px inset #FFFFFF;
+}
+
+body.theme-win95 .cli-prompt-label {
+  color: #FFFFFF !important;
+}
+
+body.theme-win95 .cli-input {
+  background: #000000 !important;
+  color: #FFFFFF !important;
+  caret-color: #FFFFFF;
+}
+
+body.theme-win95 .site-footer {
+  background: #C0C0C0 !important;
+  color: #000000 !important;
+  border-top: 2px solid #808080 !important;
+}
+
+body.theme-win95 .footer-copy {
+  color: #000000 !important;
+}
+
+body.theme-win95 .cli-trigger {
+  background: #C0C0C0 !important;
+  color: #000000 !important;
+  border-top: 2px solid #FFFFFF !important;
+  border-left: 2px solid #FFFFFF !important;
+  border-right: 2px solid #000000 !important;
+  border-bottom: 2px solid #000000 !important;
+  padding: 3px 8px !important;
+  box-shadow: none !important;
+  font-weight: 700;
+}
+
+body.theme-win95 .cli-trigger:hover {
+  background: #D4D0C8 !important;
+  color: #000000 !important;
+  text-decoration: none;
+  transform: none;
+}
+
+body.theme-win95 .cli-trigger:active {
+  border-top: 2px solid #000000 !important;
+  border-left: 2px solid #000000 !important;
+  border-right: 2px solid #FFFFFF !important;
+  border-bottom: 2px solid #FFFFFF !important;
+  transform: translate(1px, 1px);
 }

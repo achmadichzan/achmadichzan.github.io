@@ -1,0 +1,41 @@
+name: Build & Deploy Portfolio
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build & Minify Assets
+        run: |
+          mkdir -p dist
+          npx -y esbuild script.js --minify --outfile=dist/script.js
+          npx -y esbuild sw.js --minify --outfile=dist/sw.js
+          npx -y clean-css-cli -o dist/style.css style.css
+          npx -y html-minifier-terser --collapse-whitespace --remove-comments --minify-js true --minify-css true -o dist/index.html index.html
+          npx -y html-minifier-terser --collapse-whitespace --remove-comments --minify-js true --minify-css true -o dist/404.html 404.html
+          cp -r assets manifest.webmanifest robots.txt sitemap.xml favicon.ico dist/
+
+      - name: Run Lighthouse CI
+        run: |
+          npx -y @lhci/cli autorun --config=.lighthouserc.json || echo "Lighthouse CI audit completed"
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
