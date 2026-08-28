@@ -19,20 +19,19 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
 
       - name: Build & Minify Assets
         run: |
           mkdir -p dist
-          npx -y esbuild script.js --minify --outfile=dist/script.js
-          npx -y esbuild sw.js --minify --outfile=dist/sw.js
-          npx -y clean-css-cli -o dist/style.css style.css
-          npx -y html-minifier-terser --collapse-whitespace --remove-comments --minify-js true --minify-css true -o dist/index.html index.html
-          npx -y html-minifier-terser --collapse-whitespace --remove-comments --minify-js true --minify-css true -o dist/404.html 404.html
-          cp -r assets manifest.webmanifest robots.txt sitemap.xml favicon.ico dist/
+          npm run build
 
       - name: Run Lighthouse CI
-        run: |
-          npx -y @lhci/cli autorun --config=.lighthouserc.json || echo "Lighthouse CI audit completed"
+        continue-on-error: true
+        run: npx -y @lhci/cli autorun --config=.lighthouserc.json
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4

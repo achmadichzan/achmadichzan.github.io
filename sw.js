@@ -1,10 +1,11 @@
-const CACHE_NAME = 'portfolio-v1.1.0';
+const CACHE_NAME = 'portfolio-v1.2.0';
 const CORE_ASSETS = [
   './',
   './index.html',
   './404.html',
   './style.css',
-  './script.js',
+  './src/main.js',
+  './theme-init.js',
   './manifest.webmanifest',
   './favicon.ico',
   './assets/favicon.svg',
@@ -14,6 +15,9 @@ const CORE_ASSETS = [
   './assets/avatar.avif',
   './assets/avatar.webp',
   './assets/og-image.webp',
+  './assets/cursor-matrix-default.svg',
+  './assets/cursor-matrix-pointer.svg',
+  './assets/cursor-matrix-text.svg',
   './assets/fonts/i7dPIFZifjKcF5UAWdDRYEF8RQ.woff2',
   './assets/fonts/i7dMIFZifjKcF5UAWdDRaPpZUFWaHg.woff2'
 ];

@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Primary Meta Tags -->
+  <!-- Meta -->
   <title>Achmad Ichzan — Full-Stack Developer | PHP, Kotlin, Python</title>
   <meta name="description"
     content="Full-stack developer building high-performance web & mobile applications with PHP/Laravel, Kotlin, and Python. Open to work & freelance. Based in Makassar, Indonesia.">
@@ -20,7 +20,7 @@
   <link rel="alternate" hreflang="en" href="https://achmadichzan.github.io/">
   <link rel="alternate" hreflang="id" href="https://achmadichzan.github.io/">
 
-  <!-- Open Graph -->
+  <!-- OG -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://achmadichzan.github.io/">
   <meta property="og:title" content="Achmad Ichzan — Full-Stack Developer">
@@ -32,7 +32,7 @@
   <meta property="og:locale" content="en_US">
   <meta property="og:site_name" content="Achmad Ichzan — Developer Portfolio">
 
-  <!-- Twitter Card -->
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:url" content="https://achmadichzan.github.io/">
   <meta name="twitter:title" content="Achmad Ichzan — Full-Stack Developer">
@@ -46,9 +46,9 @@
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline'; connect-src 'self';">
+    content="default-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; script-src 'self'; connect-src 'self';">
 
-  <!-- Preload Fonts (Active Space Mono Latin WOFF2) -->
+  <!-- Fonts -->
   <link rel="preload" href="./assets/fonts/i7dPIFZifjKcF5UAWdDRYEF8RQ.woff2" as="font" type="font/woff2"
     crossorigin="anonymous">
   <link rel="preload" href="./assets/fonts/i7dMIFZifjKcF5UAWdDRaPpZUFWaHg.woff2" as="font" type="font/woff2"
@@ -56,7 +56,7 @@
 
   <link rel="stylesheet" href="style.css">
 
-  <!-- JSON-LD -->
+  <!-- Schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -82,30 +82,12 @@
     "image": "https://achmadichzan.github.io/assets/avatar.webp"
   }
   </script>
-  <script>
-    (function () {
-      try {
-        var t = localStorage.getItem('portfolio_theme');
-        if (t && ['dark', 'matrix', 'win95'].indexOf(t) !== -1) {
-          document.documentElement.classList.add('theme-' + t);
-        }
-        var l = localStorage.getItem('portfolio_lang');
-        if (!l) {
-          var userLangs = navigator.languages || [navigator.language || ''];
-          var isId = userLangs.some(function (lang) { return lang && lang.toLowerCase().indexOf('id') === 0; });
-          l = isId ? 'id' : 'en';
-        }
-        if (l && ['en', 'id'].indexOf(l) !== -1) {
-          document.documentElement.lang = l;
-        }
-      } catch (e) { }
-    })();
-  </script>
+  <script src="theme-init.js"></script>
 </head>
 
 <body>
 
-  <!-- Terminal Preloader -->
+  <!-- Preloader -->
   <div id="terminalPreloader" class="terminal-preloader" role="status" aria-live="polite" aria-label="Loading system">
     <div class="preloader-terminal-box">
       <div class="preloader-header">
@@ -123,7 +105,7 @@
   <div class="master-wrapper">
     <div class="frame-container">
 
-      <!-- Navigation -->
+      <!-- Nav -->
       <header class="top-nav">
         <a href="#main-content" class="nav-logo">~/achmadichzan$</a>
 
@@ -151,11 +133,10 @@
         </div>
       </header>
 
-      <!-- Main Content -->
+      <!-- Main -->
       <main id="main-content">
-        <!-- 1. Hero -->
+        <!-- Hero -->
         <section class="hero-section">
-          <!-- Left: Status, Handle, Massive Headline, Subtext & CTA -->
           <div class="hero-left">
             <div class="status-tag" data-i18n="hero.status">[STATUS: OPEN TO WORK / FREELANCE]</div>
             <div class="author-handle">// ACHMAD ICHZAN</div>
@@ -184,7 +165,6 @@
             </div>
           </div>
 
-          <!-- Right: DEV.LOG Frame with matrix background stream -->
           <div class="hero-right">
             <canvas id="heroMatrixCanvas" class="hero-matrix-bg-canvas" aria-hidden="true"></canvas>
             <div class="dev-log-frame">
@@ -205,7 +185,7 @@
           </div>
         </section>
 
-        <!-- 2. About & Metrics -->
+        <!-- About -->
         <section class="section-about-metrics reveal" id="about">
           <div class="split-grid">
             <div class="terminal-card">
@@ -258,7 +238,7 @@
           </div>
         </section>
 
-        <!-- 3. Tech Stack -->
+        <!-- Tech -->
         <section class="section-tech-log reveal" id="stack">
           <div class="section-header-row">
             <h2 class="section-main-title" data-i18n="tech.title">TECHNICAL_LOG</h2>
@@ -313,7 +293,7 @@
           </div>
         </section>
 
-        <!-- 4. Projects -->
+        <!-- Projects -->
         <section class="section-deployments reveal" id="projects">
           <div class="section-header-row">
             <h2 class="section-main-title" data-i18n="proj.title">DEPLOYMENTS</h2>
@@ -333,11 +313,11 @@
                   Interactive web application to construct and visualize family trees featuring a Figma-style draggable
                   infinite canvas, dynamic node relations, and genealogy management.
                 </p>
-                <div class="proj-tags-row">
-                  <span class="tag-small">Svelte</span>
-                  <span class="tag-small">SQLite</span>
-                  <span class="tag-small">Canvas Graph</span>
-                </div>
+                <ul class="proj-tags-row" aria-label="Technologies used">
+                  <li class="tag-small">Svelte</li>
+                  <li class="tag-small">SQLite</li>
+                  <li class="tag-small">Canvas Graph</li>
+                </ul>
                 <div class="proj-metrics-box">
                   <div data-i18n="proj.silsilahkuInterface">&gt; INTERFACE: Infinite Draggable Canvas</div>
                   <div data-i18n="proj.silsilahkuDeploy">&gt; DEPLOY: Cloudflare Workers</div>
@@ -369,12 +349,12 @@
                   Computer vision system analyzing classroom learning videos to detect 7 facial micro-expressions
                   (happy, sad, surprise, fear, disgust, anger, neutral) and generate automated teaching recommendations.
                 </p>
-                <div class="proj-tags-row">
-                  <span class="tag-small">Python</span>
-                  <span class="tag-small">YOLO</span>
-                  <span class="tag-small">Computer Vision</span>
-                  <span class="tag-small">Hugging Face</span>
-                </div>
+                <ul class="proj-tags-row" aria-label="Technologies used">
+                  <li class="tag-small">Python</li>
+                  <li class="tag-small">YOLO</li>
+                  <li class="tag-small">Computer Vision</li>
+                  <li class="tag-small">Hugging Face</li>
+                </ul>
                 <div class="proj-metrics-box">
                   <div data-i18n="proj.edureflectDetection">&gt; DETECTION: 7 Micro-Expressions (YOLO)</div>
                   <div data-i18n="proj.edureflectDeploy">&gt; DEPLOY: Hugging Face Spaces</div>
@@ -405,12 +385,12 @@
                   Native Android application providing real-time multilingual speech-to-text powered by the Vosk engine,
                   converting long-duration foreign audio and video speech into concise AI-generated summaries.
                 </p>
-                <div class="proj-tags-row">
-                  <span class="tag-small">Kotlin</span>
-                  <span class="tag-small">Vosk STT</span>
-                  <span class="tag-small">AI Summarizer</span>
-                  <span class="tag-small">Android</span>
-                </div>
+                <ul class="proj-tags-row" aria-label="Technologies used">
+                  <li class="tag-small">Kotlin</li>
+                  <li class="tag-small">Vosk STT</li>
+                  <li class="tag-small">AI Summarizer</li>
+                  <li class="tag-small">Android</li>
+                </ul>
                 <div class="proj-metrics-box">
                   <div data-i18n="proj.rangkumEngine">&gt; ENGINE: Vosk Multilingual Offline STT</div>
                   <div data-i18n="proj.rangkumIntel">&gt; INTELLIGENCE: Automated LLM Summarizer</div>
@@ -438,12 +418,12 @@
                   via low-level NT APIs (NtSuspendProcess) before execution, featuring modern Slint UI authentication
                   and IPC Named Pipes.
                 </p>
-                <div class="proj-tags-row">
-                  <span class="tag-small">Rust</span>
-                  <span class="tag-small">Slint UI</span>
-                  <span class="tag-small">Win32 / NTDLL</span>
-                  <span class="tag-small">Named Pipes IPC</span>
-                </div>
+                <ul class="proj-tags-row" aria-label="Technologies used">
+                  <li class="tag-small">Rust</li>
+                  <li class="tag-small">Slint UI</li>
+                  <li class="tag-small">Win32 / NTDLL</li>
+                  <li class="tag-small">Named Pipes IPC</li>
+                </ul>
                 <div class="proj-metrics-box">
                   <div data-i18n="proj.applockerEngine">&gt; ENGINE: Low-Level Process Interception (NtSuspendProcess)</div>
                   <div data-i18n="proj.applockerArch">&gt; ARCHITECTURE: Cargo Workspace (Daemon, UI, Watchdog)</div>
@@ -472,12 +452,12 @@
                   and Jetpack Compose featuring 3D card flips, progressive levels, StateFlow reactive architecture, and
                   Preferences DataStore.
                 </p>
-                <div class="proj-tags-row">
-                  <span class="tag-small">Kotlin</span>
-                  <span class="tag-small">Jetpack Compose</span>
-                  <span class="tag-small">MVVM / Clean Arch</span>
-                  <span class="tag-small">DataStore</span>
-                </div>
+                <ul class="proj-tags-row" aria-label="Technologies used">
+                  <li class="tag-small">Kotlin</li>
+                  <li class="tag-small">Jetpack Compose</li>
+                  <li class="tag-small">MVVM / Clean Arch</li>
+                  <li class="tag-small">DataStore</li>
+                </ul>
                 <div class="proj-metrics-box">
                   <div data-i18n="proj.unalzheimerEngine">&gt; ENGINE: Jetpack Compose 3D Flip &amp; StateFlow</div>
                   <div data-i18n="proj.unalzheimerAudio">&gt; AUDIO &amp; STORAGE: SoundPool &amp; Preferences DataStore</div>
@@ -494,7 +474,7 @@
           </div>
         </section>
 
-        <!-- 5. History -->
+        <!-- History -->
         <section class="section-history reveal" id="experience">
           <div class="section-header-row">
             <h2 class="section-main-title" data-i18n="exp.title">SYSTEM_HISTORY</h2>
@@ -544,10 +524,9 @@
         </section>
       </main>
 
-      <!-- Telemetry Bar -->
+      <!-- Telemetry -->
       <div class="telemetry-ticker-bar" id="telemetryBar" role="region" aria-label="Live system telemetry data">
         <div class="telemetry-track">
-          <!-- Primary Stream -->
           <div class="telemetry-content">
             <span class="ticker-item">CLIENT_CPU: <span class="cpu-cores-val">-- THREADS</span></span>
             <span class="ticker-separator">|</span>
@@ -572,7 +551,6 @@
                 class="tz-val">LOCAL</span>)</span>
             <span class="ticker-separator">|</span>
           </div>
-          <!-- Seamless Duplicate Stream: cloned via JS -->
         </div>
       </div>
 
@@ -596,10 +574,9 @@
     </div>
   </div>
 
-  <!-- Floating Theme Switcher Button (Middle Right) -->
+  <!-- Theme Toggle -->
   <button type="button" class="theme-fab-btn" id="themeToggleBtn" aria-label="Switch Design Theme"
     title="Switch to Windows 95 Retro Theme" data-notify="THEME: Toggling UI visual architecture">
-    <!-- Authentic Windows 95 Vector Logo -->
     <svg class="fab-icon-win95" viewBox="132 175 36 31" width="26" height="26" aria-hidden="true">
       <path d="m147.45 199.64 3.2812-8.125c1.5625-0.0859 4.0977 0.26563 5.668 0.64453l-3.375 8.3594c-1.5312-0.37891-4.043-0.83985-5.5742-0.87891" fill="#3d87cf" />
       <path d="m162.2 195.43-3.4102 8.3984c-1.1406-0.9375-4.2656-2.7188-5.7656-3.3086l3.375-8.3594c1.5273 0.54297 4.7891 2.1797 5.8008 3.2695" fill="#fac705" />
@@ -649,7 +626,6 @@
       <path d="m138.57 198.67 0.60546-1.5078 2.3789 0.0156-0.60547 1.5117-2.3789-0.0195" fill="#000000" />
       <path d="m164.05 188.08c-1.0039-1.1445-2.3984-1.957-3.9414-2.4688l-2.4141 5.9727c1.5391 0.56641 2.8984 1.3438 3.9922 2.3398zm-3.1328 7.793c-1.0117-1.0898-2.4609-1.8633-3.9844-2.4062l-2.4531 6.1016c1.4961 0.58984 2.8984 1.2891 4.0391 2.2266zm6.2031-8.4883-7.668 18.977c-1.9883-2.7109-5.4453-4.4219-8.918-5.0703-1.1953-0.21875-2.3945-0.38281-3.5898-0.42969l1.0039-2.4688c1.5312 0.043 3.0664 0.22266 4.5977 0.60547l2.4766-6.1367c-1.5703-0.3789-3.1367-0.42578-4.6992-0.33984l0.80469-2.0156c1.5469-0.0312 3.0977 0.0664 4.6484 0.49218l2.3906-5.9102c-1.5664-0.30469-3.1328-0.41407-4.6914-0.35938l1.0703-2.6719c3.5547-0.0156 7.668 0.97656 10.582 3.3359 0.73828 0.58594 1.418 1.2344 1.9922 1.9922" fill="#000000" />
     </svg>
-    <!-- Neo-Brutalist Terminal Dev Prompt Icon (>_) -->
     <svg class="fab-icon-brutalist" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor"
       stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
       <path d="M4 6L11 12L4 18" />
@@ -657,8 +633,8 @@
     </svg>
   </button>
 
-  <!-- CLI Drawer -->
-  <div class="cli-drawer" id="cliDrawer" role="dialog" aria-modal="false" aria-label="Interactive CLI Terminal">
+  <!-- CLI -->
+  <div class="cli-drawer" id="cliDrawer" role="dialog" aria-modal="true" aria-label="Interactive CLI Terminal">
     <div class="cli-header">
       <span>TERMINAL_SESSION // ROOT</span>
       <button class="cli-close-btn" id="cliCloseBtn" aria-label="Close terminal">[X]</button>
@@ -670,8 +646,11 @@
     </div>
     <div class="cli-input-row">
       <span class="cli-prompt-label">&gt;</span>
-      <label for="cliInput" class="sr-only">Terminal command input</label>
-      <input type="text" class="cli-input" id="cliInput" placeholder="Enter command..." autocomplete="off">
+      <div class="cli-input-wrapper">
+        <span class="cli-ghost-text" id="cliGhostText" aria-hidden="true"></span>
+        <label for="cliInput" class="sr-only">Terminal command input</label>
+        <input type="text" class="cli-input" id="cliInput" placeholder="Enter command..." autocomplete="off" spellcheck="false">
+      </div>
     </div>
   </div>
 
@@ -693,7 +672,7 @@
       }
     </style>
   </noscript>
-  <script src="script.js" defer></script>
+  <script type="module" src="src/main.js"></script>
 </body>
 
 </html>
