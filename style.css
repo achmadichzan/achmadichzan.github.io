@@ -448,9 +448,20 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--bg-main);
-  background-image: radial-gradient(#000000 1.2px, transparent 1.2px);
-  background-size: 18px 18px;
+  background-color: var(--bg-white, #FFFFFF);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-matrix-bg-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.95;
 }
 
 .dev-log-frame {
@@ -463,6 +474,7 @@ a {
   display: flex;
   flex-direction: column;
   position: relative;
+  z-index: 2;
 }
 
 .dev-log-title {
@@ -1048,6 +1060,14 @@ body.theme-win95 .footer-lang-btn {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+
+.cli-header:active,
+.cli-drawer.dragging .cli-header {
+  cursor: grabbing;
 }
 
 .cli-close-btn {
@@ -1417,7 +1437,8 @@ body.theme-dark .section-deployments,
 body.theme-dark .section-history,
 body.theme-dark .terminal-card,
 body.theme-dark .project-card-brutalist,
-body.theme-dark .dev-log-frame {
+body.theme-dark .dev-log-frame,
+body.theme-dark .hero-right {
   background-color: #181818;
   color: #FFFFFF;
 }
@@ -1484,7 +1505,8 @@ body.theme-matrix .section-deployments,
 body.theme-matrix .section-history,
 body.theme-matrix .terminal-card,
 body.theme-matrix .project-card-brutalist,
-body.theme-matrix .dev-log-frame {
+body.theme-matrix .dev-log-frame,
+body.theme-matrix .hero-right {
   background-color: #000000 !important;
 }
 
@@ -1656,8 +1678,12 @@ body.theme-win95 .section-history {
 }
 
 body.theme-win95 .hero-right {
-  background-color: #008080;
+  background-color: #008080 !important;
   background-image: radial-gradient(#004D40 1.2px, transparent 1.2px);
+}
+
+body.theme-win95 .hero-matrix-bg-canvas {
+  display: none !important;
 }
 
 body.theme-win95 .terminal-card,

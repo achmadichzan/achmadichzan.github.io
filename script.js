@@ -292,6 +292,10 @@ function setTheme(theme, notify = false) {
     localStorage.setItem('portfolio_theme', validTheme);
   } catch (e) { }
 
+  if (typeof updateHeroMatrixRainState === 'function') {
+    updateHeroMatrixRainState();
+  }
+
   if (notify) {
     const messages = {
       light: 'Neo-Brutalist Light Mode activated',
@@ -328,10 +332,10 @@ const TRANSLATIONS = {
     'about.file': 'ABOUT_ME.TXT',
     'about.readOnly': '[READ_ONLY]',
     'about.promptInit': 'System initialized...',
-    'about.bio': 'I build production web applications with PHP/Laravel, develop native Android apps with Kotlin, and apply machine learning with Python/TensorFlow. Focused on writing clean, maintainable code, and delivering reliable systems from frontend to backend.',
+    'about.bio': 'I build production web applications with PHP/Laravel, develop native Android apps with Kotlin, and apply machine learning with Python/TensorFlow. Focused on writing clean, maintainable code with Clean Architecture, and delivering reliable systems from frontend to backend.',
     'about.location': 'Makassar / Remote',
     'about.class': 'Full Stack Developer',
-    'about.focus': 'Frontend &amp; Backend Systems, Performance',
+    'about.focus': 'Frontend &amp; Backend Systems, Performance, Clean Architecture',
     'about.specLocationKey': 'LOCATION:',
     'about.specClassKey': 'CLASS:',
     'about.specFocusKey': 'FOCUS:',
@@ -395,12 +399,12 @@ const TRANSLATIONS = {
     'hero.specBase': '&gt; DOMISILI: MAKASSAR, ID',
     'hero.verified': '[SYS: TERVERIFIKASI]',
     'about.file': 'TENTANG_SAYA.TXT',
-    'about.readOnly': '[HANYA_BACA]',
-    'about.promptInit': 'Sistem diinisialisasi...',
-    'about.bio': 'Saya membangun aplikasi web produksi dengan PHP/Laravel, mengembangkan aplikasi native Android dengan Kotlin, dan menerapkan machine learning dengan Python/TensorFlow. Berfokus pada penulisan kode yang bersih dan maintainable, serta menghadirkan sistem andal dari frontend hingga backend.',
+    'about.readOnly': '[READ_ONLY]',
+    'about.promptInit': 'System initialized...',
+    'about.bio': 'Saya membangun aplikasi web produksi dengan PHP/Laravel, mengembangkan aplikasi native Android dengan Kotlin, dan menerapkan machine learning dengan Python/TensorFlow. Berfokus pada penulisan kode yang bersih dan maintainable dengan Clean Architecture, serta menghadirkan sistem andal dari frontend hingga backend.',
     'about.location': 'Makassar / Remote',
     'about.class': 'Full Stack Developer',
-    'about.focus': 'Sistem Frontend &amp; Backend, Performa',
+    'about.focus': 'Sistem Frontend &amp; Backend, Performa, Clean Architecture',
     'about.specLocationKey': 'LOKASI:',
     'about.specClassKey': 'PERAN:',
     'about.specFocusKey': 'FOKUS:',
@@ -448,7 +452,7 @@ const TRANSLATIONS = {
     'exp.row3Time': 'Des 2023 - Jan 2024',
     'exp.row3Desig': 'Mobile Apps Developer',
     'exp.row4Time': 'Feb 2023 - Jul 2023',
-    'exp.row4Desig': 'Peserta Mobile Development Cohort',
+    'exp.row4Desig': 'Peserta Mobile Development',
     'footer.rights': '&copy;2026 ACHMAD ICHZAN // HAK CIPTA DILINDUNGI',
     'preloader.title': 'DEV_BOOT // INISIALISASI_SESI'
   }
@@ -479,7 +483,7 @@ function setLanguage(lang, notify = false) {
 
   try {
     localStorage.setItem('portfolio_lang', selectedLang);
-  } catch (e) {}
+  } catch (e) { }
 
   if (notify) {
     showToast(selectedLang === 'id' ? 'Bahasa Indonesia diaktifkan' : 'Switched to English');
@@ -492,7 +496,7 @@ function getStoredLanguage() {
     if (saved && ['en', 'id'].includes(saved)) {
       return saved;
     }
-  } catch (e) {}
+  } catch (e) { }
 
   const userLangs = navigator.languages || [navigator.language || ''];
   const hasIndonesian = userLangs.some(lang => lang && lang.toLowerCase().startsWith('id'));
@@ -597,11 +601,248 @@ function initTerminalPreloader() {
   }
 }
 
+function initDraggableCli() {
+  const drawer = document.getElementById('cliDrawer');
+  const header = drawer ? drawer.querySelector('.cli-header') : null;
+  if (!drawer || !header) return;
+
+  let isDragging = false;
+  let startX = 0;
+  let startY = 0;
+  let initialLeft = 0;
+  let initialTop = 0;
+
+  function clamp(val, min, max) {
+    return Math.max(min, Math.min(val, max));
+  }
+
+  function onPointerDown(e) {
+    if (e.target.closest('#cliCloseBtn')) return;
+
+    isDragging = true;
+    drawer.classList.add('dragging');
+
+    const rect = drawer.getBoundingClientRect();
+    initialLeft = rect.left;
+    initialTop = rect.top;
+    startX = e.clientX;
+    startY = e.clientY;
+
+    drawer.style.left = `${initialLeft}px`;
+    drawer.style.top = `${initialTop}px`;
+    drawer.style.right = 'auto';
+    drawer.style.bottom = 'auto';
+
+    header.setPointerCapture(e.pointerId);
+  }
+
+  function onPointerMove(e) {
+    if (!isDragging) return;
+    const deltaX = e.clientX - startX;
+    const deltaY = e.clientY - startY;
+
+    const drawerWidth = drawer.offsetWidth;
+    const drawerHeight = drawer.offsetHeight;
+    const maxLeft = Math.max(0, window.innerWidth - drawerWidth);
+    const maxTop = Math.max(0, window.innerHeight - drawerHeight);
+
+    const newLeft = clamp(initialLeft + deltaX, 0, maxLeft);
+    const newTop = clamp(initialTop + deltaY, 0, maxTop);
+
+    drawer.style.left = `${newLeft}px`;
+    drawer.style.top = `${newTop}px`;
+  }
+
+  function onPointerUp(e) {
+    if (!isDragging) return;
+    isDragging = false;
+    drawer.classList.remove('dragging');
+    try {
+      header.releasePointerCapture(e.pointerId);
+    } catch (err) {}
+  }
+
+  header.addEventListener('pointerdown', onPointerDown);
+  header.addEventListener('pointermove', onPointerMove);
+  header.addEventListener('pointerup', onPointerUp);
+  header.addEventListener('pointercancel', onPointerUp);
+
+  window.addEventListener('resize', () => {
+    if (drawer.style.left && drawer.style.left !== 'auto') {
+      const rect = drawer.getBoundingClientRect();
+      const maxLeft = Math.max(0, window.innerWidth - rect.width);
+      const maxTop = Math.max(0, window.innerHeight - rect.height);
+      drawer.style.left = `${clamp(rect.left, 0, maxLeft)}px`;
+      drawer.style.top = `${clamp(rect.top, 0, maxTop)}px`;
+    }
+  });
+}
+
+let updateHeroMatrixRainState = null;
+
+function initHeroMatrixRain() {
+  const canvas = document.getElementById('heroMatrixCanvas');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) return;
+
+  // Authentic Matrix Katakana, Alphanumerics & Symbols
+  const chars = 'ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍ0123456789:・."=*+-<>¦｜';
+  const charArray = chars.split('');
+
+  const fontSize = 13;
+  let columns = 0;
+  let drops = [];
+  let speeds = [];
+  let rafId = null;
+  let isVisible = true;
+  let lastFrameTime = 0;
+  const targetFpsInterval = 1000 / 28;
+
+  function resizeCanvas() {
+    const parent = canvas.parentElement;
+    if (!parent) return;
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const rect = parent.getBoundingClientRect();
+    const width = Math.floor(rect.width || 380);
+    const height = Math.floor(rect.height || 320);
+
+    canvas.width = Math.floor(width * dpr);
+    canvas.height = Math.floor(height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    columns = Math.max(1, Math.floor(width / fontSize));
+    drops = [];
+    speeds = [];
+
+    for (let i = 0; i < columns; i++) {
+      drops[i] = Math.floor(Math.random() * -30);
+      speeds[i] = 0.75 + Math.random() * 0.75;
+    }
+  }
+
+  function draw(timestamp) {
+    if (!isVisible || document.hidden || document.body.classList.contains('theme-win95')) {
+      rafId = null;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      return;
+    }
+
+    rafId = requestAnimationFrame(draw);
+
+    if (timestamp - lastFrameTime < targetFpsInterval) return;
+    lastFrameTime = timestamp;
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const width = canvas.width / dpr;
+    const height = canvas.height / dpr;
+
+    const isDark = document.body.classList.contains('theme-dark') || document.body.classList.contains('theme-matrix');
+
+    if (isDark) {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+    } else {
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.12)';
+    }
+    ctx.fillRect(0, 0, width, height);
+
+    ctx.font = `bold ${fontSize}px 'Space Mono', 'Courier New', monospace`;
+
+    for (let i = 0; i < columns; i++) {
+      const char = charArray[Math.floor(Math.random() * charArray.length)];
+      const x = i * fontSize;
+      const y = drops[i] * fontSize;
+
+      if (y > 0) {
+        if (isDark) {
+          ctx.fillStyle = '#E8FFE8';
+          ctx.shadowColor = '#00FF66';
+          ctx.shadowBlur = 4;
+          ctx.fillText(char, x, y);
+
+          ctx.shadowBlur = 0;
+          ctx.fillStyle = '#00FF66';
+          const trailChar = charArray[Math.floor(Math.random() * charArray.length)];
+          ctx.fillText(trailChar, x, y - fontSize);
+        } else {
+          ctx.shadowBlur = 0;
+          ctx.fillStyle = '#004D1A';
+          ctx.fillText(char, x, y);
+
+          ctx.fillStyle = '#00852B';
+          const trailChar = charArray[Math.floor(Math.random() * charArray.length)];
+          ctx.fillText(trailChar, x, y - fontSize);
+        }
+      }
+
+      if (y > height && Math.random() > 0.975) {
+        drops[i] = 0;
+      }
+
+      drops[i] += speeds[i] || 1;
+    }
+  }
+
+  function start() {
+    if (!rafId && isVisible && !document.hidden && !document.body.classList.contains('theme-win95')) {
+      lastFrameTime = performance.now();
+      rafId = requestAnimationFrame(draw);
+    }
+  }
+
+  function stop() {
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+  }
+
+  function checkAndRun() {
+    if (document.body.classList.contains('theme-win95')) {
+      stop();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    } else {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      start();
+    }
+  }
+
+  updateHeroMatrixRainState = checkAndRun;
+
+  resizeCanvas();
+  start();
+
+  window.addEventListener('resize', resizeCanvas);
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stop();
+    else start();
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      isVisible = entry.isIntersecting;
+      if (isVisible) start();
+      else stop();
+    });
+  }, { threshold: 0.05 });
+
+  const parent = canvas.parentElement;
+  if (parent) observer.observe(parent);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const currentLang = getStoredLanguage();
   setTheme(getStoredTheme(), false);
   setLanguage(currentLang, false);
   initTerminalPreloader();
+  initDraggableCli();
+  initHeroMatrixRain();
   initStaticTelemetry();
   startTelemetryEngine();
 
@@ -877,7 +1118,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typewriterText && typewriterBio && !prefersReducedMotion) {
     const dict = TRANSLATIONS[getStoredLanguage()] || TRANSLATIONS.en;
     const promptPhrase = dict['about.promptInit'] || 'System initialized...';
-    const bioParagraph = dict['about.bio'] || 'I build production web applications with PHP/Laravel, develop native Android apps with Kotlin, and apply machine learning with Python/TensorFlow. Focused on writing clean, maintainable code, and delivering reliable systems from frontend to backend.';
+    const bioParagraph = dict['about.bio'] || 'I build production web applications with PHP/Laravel, develop native Android apps with Kotlin, and apply machine learning with Python/TensorFlow. Focused on writing clean, maintainable code with Clean Architecture, and delivering reliable systems from frontend to backend.';
 
     let promptIndex = 0;
     let bioIndex = 0;
@@ -996,7 +1237,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Service Worker Registration for Offline PWA Support
   if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js').catch(() => {});
+      navigator.serviceWorker.register('./sw.js').catch(() => { });
     });
   }
 });
