@@ -234,6 +234,34 @@ a {
   box-shadow: 1px 1px 0px #000000;
 }
 
+.lang-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-white);
+  color: var(--text-dark);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0.55rem 0.85rem;
+  border: var(--border-thick);
+  box-shadow: var(--shadow-hard);
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: transform 0.1s, box-shadow 0.1s, background 0.1s;
+}
+
+.lang-toggle-btn:hover {
+  background: var(--accent-green);
+  transform: translate(-1px, -1px);
+  box-shadow: var(--shadow-hard-lg);
+}
+
+.lang-toggle-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #000000;
+}
+
 /* Floating Theme Switcher FAB (Middle-Right) */
 .theme-fab-btn {
   position: fixed;
@@ -956,11 +984,13 @@ a {
 }
 
 .footer-nav a:hover,
+.footer-lang-btn:hover,
 .cli-trigger:hover {
   color: var(--accent-green);
   text-decoration: underline;
 }
 
+.footer-lang-btn,
 .cli-trigger {
   background: transparent;
   border: none;
@@ -968,9 +998,25 @@ a {
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.5px;
-  color: var(--accent-green) !important;
   cursor: pointer;
   padding: 0;
+  transition: color 0.15s;
+}
+
+.footer-lang-btn {
+  color: var(--text-light);
+}
+
+.cli-trigger {
+  color: var(--accent-green) !important;
+}
+
+body.theme-matrix .footer-lang-btn {
+  color: #00FF66 !important;
+}
+
+body.theme-win95 .footer-lang-btn {
+  color: #000000 !important;
 }
 
 /* 8. CLI Drawer */
@@ -1383,6 +1429,7 @@ body.theme-dark .proj-desc {
 body.theme-dark .tech-pill,
 body.theme-dark .tag-small,
 body.theme-dark .hero-spec-chip,
+body.theme-dark .lang-toggle-btn,
 body.theme-dark .theme-toggle-btn {
   background: #252525;
   color: #FFFFFF;
@@ -1444,10 +1491,16 @@ body.theme-matrix .dev-log-frame {
 body.theme-matrix .tech-pill,
 body.theme-matrix .tag-small,
 body.theme-matrix .hero-spec-chip,
+body.theme-matrix .lang-toggle-btn,
 body.theme-matrix .theme-toggle-btn {
   background: #0A1C0E !important;
   color: #00FF66 !important;
   border-color: #00FF66 !important;
+}
+
+body.theme-matrix .lang-toggle-btn:hover {
+  background: #00FF66 !important;
+  color: #000000 !important;
 }
 
 /* Explicit Black-on-Green Contrast for Action Buttons & Badges */
@@ -1674,6 +1727,7 @@ body.theme-win95 .dev-log-meta {
 
 body.theme-win95 .hero-cta-btn,
 body.theme-win95 .nav-cta-btn,
+body.theme-win95 .lang-toggle-btn,
 body.theme-win95 .tech-pill,
 body.theme-win95 .tag-small,
 body.theme-win95 .hero-spec-chip {
@@ -1688,13 +1742,15 @@ body.theme-win95 .hero-spec-chip {
 
 body.theme-win95 .hero-cta-btn:hover,
 body.theme-win95 .nav-cta-btn:hover,
+body.theme-win95 .lang-toggle-btn:hover,
 body.theme-win95 .tech-pill:hover {
   background: #D4D0C8 !important;
   transform: none;
 }
 
 body.theme-win95 .hero-cta-btn:active,
-body.theme-win95 .nav-cta-btn:active {
+body.theme-win95 .nav-cta-btn:active,
+body.theme-win95 .lang-toggle-btn:active {
   border-top: 2px solid #000000 !important;
   border-left: 2px solid #000000 !important;
   border-right: 2px solid #FFFFFF !important;

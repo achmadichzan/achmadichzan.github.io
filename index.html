@@ -16,6 +16,9 @@
   <meta name="theme-color" content="#F4F4F0">
 
   <link rel="canonical" href="https://achmadichzan.github.io/">
+  <link rel="alternate" hreflang="x-default" href="https://achmadichzan.github.io/">
+  <link rel="alternate" hreflang="en" href="https://achmadichzan.github.io/">
+  <link rel="alternate" hreflang="id" href="https://achmadichzan.github.io/">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
@@ -86,6 +89,15 @@
         if (t && ['dark', 'matrix', 'win95'].indexOf(t) !== -1) {
           document.documentElement.classList.add('theme-' + t);
         }
+        var l = localStorage.getItem('portfolio_lang');
+        if (!l) {
+          var userLangs = navigator.languages || [navigator.language || ''];
+          var isId = userLangs.some(function (lang) { return lang && lang.toLowerCase().indexOf('id') === 0; });
+          l = isId ? 'id' : 'en';
+        }
+        if (l && ['en', 'id'].indexOf(l) !== -1) {
+          document.documentElement.lang = l;
+        }
       } catch (e) { }
     })();
   </script>
@@ -97,7 +109,7 @@
   <div id="terminalPreloader" class="terminal-preloader" role="status" aria-live="polite" aria-label="Loading system">
     <div class="preloader-terminal-box">
       <div class="preloader-header">
-        <span>DEV_BOOT // SESSION_INIT</span>
+        <span data-i18n="preloader.title">DEV_BOOT // SESSION_INIT</span>
       </div>
       <div class="preloader-content">
         <span class="preloader-prompt">~/achmadichzan$</span>
@@ -125,15 +137,15 @@
         <div class="nav-menu-wrapper" id="navMenuWrapper">
           <nav aria-label="Main navigation">
             <ul class="nav-links">
-              <li><a href="#about" data-notify="NAV: Jumped to ABOUT_ME.TXT">ABOUT</a></li>
-              <li><a href="#stack" data-notify="NAV: Jumped to TECHNICAL_LOG">STACK</a></li>
-              <li><a href="#projects" data-notify="NAV: Jumped to DEPLOYMENTS">PROJECTS</a></li>
-              <li><a href="#experience" data-notify="NAV: Jumped to SYSTEM_HISTORY">EXPERIENCE</a></li>
+              <li><a href="#about" data-notify="NAV: Jumped to ABOUT_ME.TXT" data-i18n="nav.about">ABOUT</a></li>
+              <li><a href="#stack" data-notify="NAV: Jumped to TECHNICAL_LOG" data-i18n="nav.stack">STACK</a></li>
+              <li><a href="#projects" data-notify="NAV: Jumped to DEPLOYMENTS" data-i18n="nav.projects">PROJECTS</a></li>
+              <li><a href="#experience" data-notify="NAV: Jumped to SYSTEM_HISTORY" data-i18n="nav.experience">EXPERIENCE</a></li>
             </ul>
           </nav>
 
           <a href="mailto:achmadichzan9@gmail.com?subject=Project%20Inquiry%20//%20Achmad%20Ichzan" class="nav-cta-btn"
-            data-notify="OUTBOX: Composing direct mailto transmission to achmadichzan9@gmail.com">
+            data-notify="OUTBOX: Composing direct mailto transmission to achmadichzan9@gmail.com" data-i18n="nav.cta">
             [GET_IN_TOUCH]
           </a>
         </div>
@@ -145,15 +157,15 @@
         <section class="hero-section">
           <!-- Left: Status, Handle, Massive Headline, Subtext & CTA -->
           <div class="hero-left">
-            <div class="status-tag">[STATUS: OPEN TO WORK / FREELANCE]</div>
+            <div class="status-tag" data-i18n="hero.status">[STATUS: OPEN TO WORK / FREELANCE]</div>
             <div class="author-handle">// ACHMAD ICHZAN</div>
-            <h1 class="hero-headline">
+            <h1 class="hero-headline" data-i18n="hero.headline">
               FULL-STACK<br>
               DEVELOPER
             </h1>
             <div class="hero-specs-row">
-              <span class="hero-spec-chip">&gt; STACK: LARAVEL / KOTLIN / FASTAPI</span>
-              <span class="hero-spec-chip">&gt; BASE: MAKASSAR, ID</span>
+              <span class="hero-spec-chip" data-i18n="hero.specStack">&gt; STACK: LARAVEL / KOTLIN / FASTAPI</span>
+              <span class="hero-spec-chip" data-i18n="hero.specBase">&gt; BASE: MAKASSAR, ID</span>
             </div>
             <div class="hero-actions-row">
               <a href="https://github.com/achmadichzan" target="_blank" rel="noopener noreferrer" class="hero-cta-btn"
@@ -186,7 +198,7 @@
               </div>
               <div class="dev-log-meta">
                 <span>// ID: DEV_092</span>
-                <span class="status-green">[SYS: VERIFIED]</span>
+                <span class="status-green" data-i18n="hero.verified">[SYS: VERIFIED]</span>
               </div>
             </div>
           </div>
@@ -197,8 +209,8 @@
           <div class="split-grid">
             <div class="terminal-card">
               <div class="terminal-header">
-                <span>ABOUT_ME.TXT</span>
-                <span>[READ_ONLY]</span>
+                <span data-i18n="about.file">ABOUT_ME.TXT</span>
+                <span data-i18n="about.readOnly">[READ_ONLY]</span>
               </div>
               <div class="terminal-body">
                 <div class="prompt-init">&gt; <span id="typewriterText">System initialized...</span><span
@@ -215,13 +227,13 @@
 
                 <div class="sys-specs-title">[SYS.SPECS]</div>
                 <div class="sys-spec-row">
-                  <span class="spec-key">LOCATION:</span> Makassar / Remote
+                  <span class="spec-key" data-i18n="about.specLocationKey">LOCATION:</span> <span data-i18n="about.location">Makassar / Remote</span>
                 </div>
                 <div class="sys-spec-row">
-                  <span class="spec-key">CLASS:</span> Full Stack Developer
+                  <span class="spec-key" data-i18n="about.specClassKey">CLASS:</span> <span data-i18n="about.class">Full Stack Developer</span>
                 </div>
                 <div class="sys-spec-row">
-                  <span class="spec-key">FOCUS:</span> Frontend &amp; Backend Systems, Performance
+                  <span class="spec-key" data-i18n="about.specFocusKey">FOCUS:</span> <span data-i18n="about.focus">Frontend &amp; Backend Systems, Performance</span>
                 </div>
               </div>
             </div>
@@ -229,17 +241,17 @@
             <div class="metrics-col">
               <div class="metric-card card-green">
                 <div class="metric-val">3+</div>
-                <div class="metric-lbl">APPS DEPLOYED</div>
+                <div class="metric-lbl" data-i18n="about.metricsApps">APPS DEPLOYED</div>
               </div>
 
               <div class="metric-card card-white">
                 <div class="metric-val">2+ YRS</div>
-                <div class="metric-lbl">EXP</div>
+                <div class="metric-lbl" data-i18n="about.metricsExp">EXP</div>
               </div>
 
               <div class="metric-card card-white">
                 <div class="metric-val">20+</div>
-                <div class="metric-lbl">REPOS</div>
+                <div class="metric-lbl" data-i18n="about.metricsRepos">REPOS</div>
               </div>
             </div>
           </div>
@@ -248,13 +260,13 @@
         <!-- 3. Tech Stack -->
         <section class="section-tech-log reveal" id="stack">
           <div class="section-header-row">
-            <h2 class="section-main-title">TECHNICAL_LOG</h2>
-            <div class="status-badge-dark">[SYS.STATUS: OK]</div>
+            <h2 class="section-main-title" data-i18n="tech.title">TECHNICAL_LOG</h2>
+            <div class="status-badge-dark" data-i18n="tech.status">[SYS.STATUS: OK]</div>
           </div>
           <hr class="thick-rule">
 
           <div class="tech-category-block">
-            <div class="category-title">CORE &amp; RUNTIME</div>
+            <div class="category-title" data-i18n="tech.catCore">CORE &amp; RUNTIME</div>
             <hr class="category-dashed">
             <div class="pill-grid">
               <div class="tech-pill">PHP</div>
@@ -267,7 +279,7 @@
           </div>
 
           <div class="tech-category-block">
-            <div class="category-title">FRAMEWORKS &amp; UI</div>
+            <div class="category-title" data-i18n="tech.catFrameworks">FRAMEWORKS &amp; UI</div>
             <hr class="category-dashed">
             <div class="pill-grid">
               <div class="tech-pill">LARAVEL</div>
@@ -279,7 +291,7 @@
           </div>
 
           <div class="tech-category-block">
-            <div class="category-title">DATABASE &amp; STORAGE</div>
+            <div class="category-title" data-i18n="tech.catDatabase">DATABASE &amp; STORAGE</div>
             <hr class="category-dashed">
             <div class="pill-grid">
               <div class="tech-pill">MYSQL</div>
@@ -289,7 +301,7 @@
           </div>
 
           <div class="tech-category-block">
-            <div class="category-title">ARCHITECTURE &amp; TOOLS</div>
+            <div class="category-title" data-i18n="tech.catTools">ARCHITECTURE &amp; TOOLS</div>
             <hr class="category-dashed">
             <div class="pill-grid">
               <div class="tech-pill">DOCKER</div>
@@ -303,7 +315,7 @@
         <!-- 4. Projects -->
         <section class="section-deployments reveal" id="projects">
           <div class="section-header-row">
-            <h2 class="section-main-title">DEPLOYMENTS</h2>
+            <h2 class="section-main-title" data-i18n="proj.title">DEPLOYMENTS</h2>
           </div>
           <hr class="thick-rule">
 
@@ -315,8 +327,8 @@
                 <span class="status-green">[STATUS: LIVE]</span>
               </div>
               <div class="project-card-body">
-                <h3 class="proj-title">INTERACTIVE FAMILY TREE BUILDER</h3>
-                <p class="proj-desc">
+                <h3 class="proj-title" data-i18n="proj.silsilahkuTitle">INTERACTIVE FAMILY TREE BUILDER</h3>
+                <p class="proj-desc" data-i18n="proj.silsilahkuDesc">
                   Interactive web application to construct and visualize family trees featuring a Figma-style draggable
                   infinite canvas, dynamic node relations, and genealogy management.
                 </p>
@@ -326,18 +338,18 @@
                   <span class="tag-small">Canvas Graph</span>
                 </div>
                 <div class="proj-metrics-box">
-                  <div>&gt; INTERFACE: Infinite Draggable Canvas</div>
-                  <div>&gt; DEPLOY: Cloudflare Workers</div>
+                  <div data-i18n="proj.silsilahkuInterface">&gt; INTERFACE: Infinite Draggable Canvas</div>
+                  <div data-i18n="proj.silsilahkuDeploy">&gt; DEPLOY: Cloudflare Workers</div>
                 </div>
                 <div class="proj-actions-row">
                   <a href="https://silsilahku.achmadichzan9.workers.dev/" target="_blank" rel="noopener noreferrer"
                     class="proj-action-link"
-                    data-notify="SILSILAHKU: Draggable interactive canvas family tree live demo">
+                    data-notify="SILSILAHKU: Draggable interactive canvas family tree live demo" data-i18n="proj.liveDemo">
                     [LIVE DEMO -&gt;]
                   </a>
                   <a href="https://github.com/achmadichzan/silsilahku" target="_blank" rel="noopener noreferrer"
                     class="proj-action-link"
-                    data-notify="SILSILAHKU: Svelte & SQLite infinite graph genealogy repository">
+                    data-notify="SILSILAHKU: Svelte & SQLite infinite graph genealogy repository" data-i18n="proj.viewRepo">
                     [VIEW REPO -&gt;]
                   </a>
                 </div>
@@ -351,8 +363,8 @@
                 <span class="status-green">[STATUS: LIVE]</span>
               </div>
               <div class="project-card-body">
-                <h3 class="proj-title">AI FACIAL EXPRESSION RECOGNITION</h3>
-                <p class="proj-desc">
+                <h3 class="proj-title" data-i18n="proj.edureflectTitle">AI FACIAL EXPRESSION RECOGNITION</h3>
+                <p class="proj-desc" data-i18n="proj.edureflectDesc">
                   Computer vision system analyzing classroom learning videos to detect 7 facial micro-expressions
                   (happy, sad, surprise, fear, disgust, anger, neutral) and generate automated teaching recommendations.
                 </p>
@@ -363,17 +375,17 @@
                   <span class="tag-small">Hugging Face</span>
                 </div>
                 <div class="proj-metrics-box">
-                  <div>&gt; DETECTION: 7 Micro-Expressions (YOLO)</div>
-                  <div>&gt; DEPLOY: Hugging Face Spaces</div>
+                  <div data-i18n="proj.edureflectDetection">&gt; DETECTION: 7 Micro-Expressions (YOLO)</div>
+                  <div data-i18n="proj.edureflectDeploy">&gt; DEPLOY: Hugging Face Spaces</div>
                 </div>
                 <div class="proj-actions-row">
                   <a href="https://huggingface.co/spaces/PJK-GU108/EduReflect" target="_blank" rel="noopener noreferrer"
-                    class="proj-action-link" data-notify="EDUREFLECT: Live space active on Hugging Face">
+                    class="proj-action-link" data-notify="EDUREFLECT: Live space active on Hugging Face" data-i18n="proj.liveDemo">
                     [LIVE DEMO -&gt;]
                   </a>
                   <a href="https://github.com/PJK-GU108/EduReflect" target="_blank" rel="noopener noreferrer"
                     class="proj-action-link"
-                    data-notify="EDUREFLECT: Computer vision YOLO facial recognition repository">
+                    data-notify="EDUREFLECT: Computer vision YOLO facial recognition repository" data-i18n="proj.viewRepo">
                     [VIEW REPO -&gt;]
                   </a>
                 </div>
@@ -387,8 +399,8 @@
                 <span class="status-green">[STATUS: ACTIVE]</span>
               </div>
               <div class="project-card-body">
-                <h3 class="proj-title">LIVE AUDIO TRANSCRIPTION &amp; AI SUMMARIZER</h3>
-                <p class="proj-desc">
+                <h3 class="proj-title" data-i18n="proj.rangkumTitle">LIVE AUDIO TRANSCRIPTION &amp; AI SUMMARIZER</h3>
+                <p class="proj-desc" data-i18n="proj.rangkumDesc">
                   Native Android application providing real-time multilingual speech-to-text powered by the Vosk engine,
                   converting long-duration foreign audio and video speech into concise AI-generated summaries.
                 </p>
@@ -399,12 +411,12 @@
                   <span class="tag-small">Android</span>
                 </div>
                 <div class="proj-metrics-box">
-                  <div>&gt; ENGINE: Vosk Multilingual Offline STT</div>
-                  <div>&gt; INTELLIGENCE: Automated LLM Summarizer</div>
+                  <div data-i18n="proj.rangkumEngine">&gt; ENGINE: Vosk Multilingual Offline STT</div>
+                  <div data-i18n="proj.rangkumIntel">&gt; INTELLIGENCE: Automated LLM Summarizer</div>
                 </div>
                 <div class="proj-actions-row">
                   <a href="https://github.com/achmadichzan/Rangkum" target="_blank" rel="noopener noreferrer"
-                    class="proj-action-link" data-notify="RANGKUM: Speech transcription & AI summary architecture">
+                    class="proj-action-link" data-notify="RANGKUM: Speech transcription & AI summary architecture" data-i18n="proj.viewRepo">
                     [VIEW REPO -&gt;]
                   </a>
                 </div>
@@ -418,8 +430,8 @@
                 <span class="status-green">[STATUS: ACTIVE]</span>
               </div>
               <div class="project-card-body">
-                <h3 class="proj-title">NATIVE WINDOWS PROCESS INTERCEPTOR &amp; APP LOCKER</h3>
-                <p class="proj-desc">
+                <h3 class="proj-title" data-i18n="proj.applockerTitle">NATIVE WINDOWS PROCESS INTERCEPTOR &amp; APP LOCKER</h3>
+                <p class="proj-desc" data-i18n="proj.applockerDesc">
                   Native Windows security desktop application built with Rust that intercepts and suspends target
                   processes
                   via low-level NT APIs (NtSuspendProcess) before execution, featuring modern Slint UI authentication
@@ -432,13 +444,13 @@
                   <span class="tag-small">Named Pipes IPC</span>
                 </div>
                 <div class="proj-metrics-box">
-                  <div>&gt; ENGINE: Low-Level Process Interception (NtSuspendProcess)</div>
-                  <div>&gt; ARCHITECTURE: Cargo Workspace (Daemon, UI, Watchdog)</div>
+                  <div data-i18n="proj.applockerEngine">&gt; ENGINE: Low-Level Process Interception (NtSuspendProcess)</div>
+                  <div data-i18n="proj.applockerArch">&gt; ARCHITECTURE: Cargo Workspace (Daemon, UI, Watchdog)</div>
                 </div>
                 <div class="proj-actions-row">
                   <a href="https://github.com/achmadichzan/app_locker" target="_blank" rel="noopener noreferrer"
                     class="proj-action-link"
-                    data-notify="APP_LOCKER: Native Windows application lock & process interception daemon">
+                    data-notify="APP_LOCKER: Native Windows application lock & process interception daemon" data-i18n="proj.viewRepo">
                     [VIEW REPO -&gt;]
                   </a>
                 </div>
@@ -452,8 +464,8 @@
                 <span class="status-green">[STATUS: ACTIVE]</span>
               </div>
               <div class="project-card-body">
-                <h3 class="proj-title">NATIVE ANDROID MEMORY &amp; COGNITIVE TRAINING GAME</h3>
-                <p class="proj-desc">
+                <h3 class="proj-title" data-i18n="proj.unalzheimerTitle">NATIVE ANDROID MEMORY &amp; COGNITIVE TRAINING GAME</h3>
+                <p class="proj-desc" data-i18n="proj.unalzheimerDesc">
                   Native Android cognitive brain-training game inspired by the Chimp Test challenge, engineered with
                   100% Kotlin
                   and Jetpack Compose featuring 3D card flips, progressive levels, StateFlow reactive architecture, and
@@ -466,13 +478,13 @@
                   <span class="tag-small">DataStore</span>
                 </div>
                 <div class="proj-metrics-box">
-                  <div>&gt; ENGINE: Jetpack Compose 3D Flip &amp; StateFlow</div>
-                  <div>&gt; AUDIO &amp; STORAGE: SoundPool &amp; Preferences DataStore</div>
+                  <div data-i18n="proj.unalzheimerEngine">&gt; ENGINE: Jetpack Compose 3D Flip &amp; StateFlow</div>
+                  <div data-i18n="proj.unalzheimerAudio">&gt; AUDIO &amp; STORAGE: SoundPool &amp; Preferences DataStore</div>
                 </div>
                 <div class="proj-actions-row">
                   <a href="https://github.com/achmadichzan/Unalzheimer" target="_blank" rel="noopener noreferrer"
                     class="proj-action-link"
-                    data-notify="UNALZHEIMER: Native Android memory training game built with Jetpack Compose">
+                    data-notify="UNALZHEIMER: Native Android memory training game built with Jetpack Compose" data-i18n="proj.viewRepo">
                     [VIEW REPO -&gt;]
                   </a>
                 </div>
@@ -484,7 +496,7 @@
         <!-- 5. History -->
         <section class="section-history reveal" id="experience">
           <div class="section-header-row">
-            <h2 class="section-main-title">SYSTEM_HISTORY</h2>
+            <h2 class="section-main-title" data-i18n="exp.title">SYSTEM_HISTORY</h2>
           </div>
           <hr class="thick-rule">
 
@@ -494,34 +506,34 @@
                 stack</caption>
               <thead>
                 <tr>
-                  <th>TIMELINE</th>
-                  <th>DESIGNATION</th>
-                  <th>NODE</th>
-                  <th>CORE STACK</th>
+                  <th data-i18n="exp.thTimeline">TIMELINE</th>
+                  <th data-i18n="exp.thDesignation">DESIGNATION</th>
+                  <th data-i18n="exp.thNode">NODE</th>
+                  <th data-i18n="exp.thStack">CORE STACK</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td><strong>Jan 2026 - Present</strong></td>
-                  <td>Full Stack Developer</td>
+                  <td><strong data-i18n="exp.row1Time">Jan 2026 - Present</strong></td>
+                  <td data-i18n="exp.row1Desig">Full Stack Developer</td>
                   <td>PT. Global Connection Indonesia</td>
                   <td>PHP, Laravel, MySQL, Vue &amp; Tailwind</td>
                 </tr>
                 <tr>
-                  <td><strong>Jul 2025 - Nov 2025</strong></td>
-                  <td>Machine Learning Bootcamp Student</td>
+                  <td><strong data-i18n="exp.row2Time">Jul 2025 - Nov 2025</strong></td>
+                  <td data-i18n="exp.row2Desig">Machine Learning Bootcamp Student</td>
                   <td>Dicoding Indonesia</td>
                   <td>Python, TensorFlow, Deep Learning</td>
                 </tr>
                 <tr>
-                  <td><strong>Dec 2023 - Jan 2024</strong></td>
-                  <td>Mobile Apps Developer</td>
+                  <td><strong data-i18n="exp.row3Time">Dec 2023 - Jan 2024</strong></td>
+                  <td data-i18n="exp.row3Desig">Mobile Apps Developer</td>
                   <td>PT Bank Mandiri (Persero) Tbk.</td>
                   <td>Kotlin, Retrofit, Coroutines, Recycler View</td>
                 </tr>
                 <tr>
-                  <td><strong>Feb 2023 - Jul 2023</strong></td>
-                  <td>Mobile Development Cohort</td>
+                  <td><strong data-i18n="exp.row4Time">Feb 2023 - Jul 2023</strong></td>
+                  <td data-i18n="exp.row4Desig">Mobile Development Cohort</td>
                   <td>Bangkit Academy</td>
                   <td>Kotlin, Jetpack Compose, Room, Flow</td>
                 </tr>
@@ -565,10 +577,16 @@
 
       <!-- Footer -->
       <footer class="site-footer">
-        <div class="footer-copy">
+        <div class="footer-copy" data-i18n="footer.rights">
           &copy;2026 ACHMAD ICHZAN // ALL RIGHTS RESERVED
         </div>
         <ul class="footer-nav">
+          <li>
+            <button type="button" class="footer-lang-btn" id="langToggleBtn" aria-label="Switch Language / Ganti Bahasa"
+              title="Switch Language (EN / ID)" data-notify="LANG: Toggled UI language">
+              [LANG: EN]
+            </button>
+          </li>
           <li><button type="button" class="cli-trigger" id="cliTriggerBtn" aria-haspopup="dialog" aria-expanded="false"
               aria-controls="cliDrawer">&gt;_CLI <span class="cli-key-hint">[CTRL+K]</span></button></li>
         </ul>
